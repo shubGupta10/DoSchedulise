@@ -62,7 +62,7 @@ function Home() {
 
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
-          <Link  className="logo me-auto"><img src="assets/img/logo.png" alt="" /></Link>
+          <Link  className="logo me-auto">DoSchedulise</Link>
           <Link to={"/User"} className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
         </div>
       </header>
