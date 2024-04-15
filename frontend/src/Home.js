@@ -563,7 +563,7 @@ function Home() {
                 </div>
               </div>
               <div class="member-info">
-                <h4>Dr. Walter White</h4>
+                <h4>Dr. Vikram Das</h4>
                 <span>Chief Medical Officer</span>
               </div>
             </div>
@@ -581,7 +581,7 @@ function Home() {
                 </div>
               </div>
               <div class="member-info">
-                <h4>Dr. Sarah Jhonson</h4>
+                <h4>Dr. Priya Patel</h4>
                 <span>Anesthesiologist</span>
               </div>
             </div>
@@ -599,7 +599,7 @@ function Home() {
                 </div>
               </div>
               <div class="member-info">
-                <h4>Dr. William Anderson</h4>
+                <h4>Dr. Abhijit Singh</h4>
                 <span>Cardiologist</span>
               </div>
             </div>
@@ -617,7 +617,7 @@ function Home() {
                 </div>
               </div>
               <div class="member-info">
-                <h4>Dr. Amanda Jepson</h4>
+                <h4>Dr. Suresh Kumar</h4>
                 <span>Neurosurgeon</span>
               </div>
             </div>
