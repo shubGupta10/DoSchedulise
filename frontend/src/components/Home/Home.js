@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import {Link} from "react-router-dom";
+import "./Home.css"
 
 function Home() {
 

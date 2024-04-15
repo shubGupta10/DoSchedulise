@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import User from "./components/GetUser/User.js";
 import Add from "./components/AddUser/Add.js"
-import Home from "./Home.js"
+import Home from "./components/Home/Home.js"
 import Edit from "./components/UpdateUser/Edit.js";
 import  Dashboard  from "./components/Dashboard/Dashboard.js";
 
