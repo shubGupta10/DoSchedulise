@@ -9,6 +9,7 @@ import  Dashboard  from "./components/Dashboard/Dashboard.js";
 function App (){
     return(
         <Routes>
+            //Routes for the app
             <Route path={"/"} element={<Home/>} />
             <Route path={"/User"} element={<User/>}/>
             <Route path={"/add"} element={<Add/>}/>
