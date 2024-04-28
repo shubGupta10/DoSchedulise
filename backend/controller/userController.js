@@ -1,82 +1,228 @@
-import User from "../model/userModel.js"
+import { User } from "../models/userSchema.js";
+import bcrypt from "bcryptjs";
 
-export const create = async (req, res)=> {
-    try {
-        const userData = new User(req.body);
-        if (!userData){
-            return res.status(404).json({msg: "User does not found"});
-        }
-        await userData.save();
-        res.status(201).json({msg: "User Account created!"});
-    } catch (e){
-        res.status(500).json({error: error});
+export const patientRegister = async (req, res) => {
+  const { firstName, lastName, email, phone, nic, dob, gender, password } = req.body;
+  if (!firstName || !lastName || !email || !phone || !nic || !dob || !gender || !password) {
+    return res.status(400).json({ success: false, message: "Please Fill Full Form!" });
+  }
+
+  try {
+    const isRegistered = await User.findOne({ email });
+    if (isRegistered) {
+      return res.status(400).json({ success: false, message: "User already Registered!" });
     }
-}
 
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-export const getAll = async(req, res) =>{
-    try {
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      nic,
+      dob,
+      gender,
+      password: hashedPassword,
+      role: "Patient",
+    });
 
-        const userData = await User.find();
-        if(!userData){
-            return res.status(404).json({msg:"User data not found"});
-        }
-        res.status(200).json(userData);
+    res.status(200).json({
+      success: true,
+      message: "User Registered",
+      user,
+    });
+  } catch (error) {
+    console.error("Error during patient registration:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
 
-    } catch (error) {
-        res.status(500).json({error: error});
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "Please provide both email and password." });
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ success: false, message: "Invalid email or password." });
     }
-}
 
-export const getOne = async(req, res) =>{
-    try {
-
-        const id = req.params.id;
-        const userExist = await User.findById(id);
-        if(!userExist){
-            return res.status(404).json({msg: "User not found"});
-        }
-        res.status(200).json(userExist);
-
-    } catch (error) {
-        res.status(500).json({error: error});
+    // Check if the user object has a password property
+    if (!user.password) {
+      return res.status(400).json({ success: false, message: "User password is not set." });
     }
-}
 
-
-export const update = async(req, res) =>{
-    try {
-
-        const id = req.params.id;
-        const userExist = await User.findById(id);
-        if(!userExist){
-            return res.status(401).json({msg:"User not found"});
-        }
-
-        const updatedData = await User.findByIdAndUpdate(id, req.body, {new:true});
-        res.status(200).json({msg: "User updated successfully"});
-
-    } catch (error) {
-        res.status(500).json({error: error});
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ success: false, message: "Invalid email or password." });
     }
-}
 
+    res.status(200).json({ success: true, message: "Login successful!", user });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
 
-export const deleteUser = async(req, res) =>{
-    try {
+export const addNewAdmin = async (req, res) => {
+  const { firstName, lastName, email, phone, nic, dob, gender, password } = req.body;
+  if (!firstName || !lastName || !email || !phone || !nic || !dob || !gender || !password) {
+    return res.status(400).json({ success: false, message: "Please Fill Full Form!" });
+  }
 
-        const id = req.params.id;
-        const userExist = await User.findById(id);
-        if(!userExist){
-            return res.status(404).json({msg: "User not exist"});
-        }
-        await User.findByIdAndDelete(id);
-        res.status(200).json({msg: "User deleted successfully"});
-
-    } catch (error) {
-        res.status(500).json({error: error});
+  try {
+    const isRegistered = await User.findOne({ email });
+    if (isRegistered) {
+      return res.status(400).json({ success: false, message: "Admin With This Email Already Exists!" });
     }
-}
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const admin = await User.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      nic,
+      dob,
+      gender,
+      password: hashedPassword,
+      role: "Admin",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "New Admin Registered",
+      admin,
+    });
+  } catch (error) {
+    console.error("Error during admin registration:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const addNewDoctor = async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    nic,
+    dob,
+    gender,
+    password,
+    doctorDepartment,
+  } = req.body;
+
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !phone ||
+    !nic ||
+    !dob ||
+    !gender ||
+    !password ||
+    !doctorDepartment
+  ) {
+    return res.status(400).json({ success: false, message: "Please Fill Full Form!" });
+  }
+
+  const isRegistered = await User.findOne({ email });
+
+  if (isRegistered) {
+    return res.status(400).json({ success: false, message: "Doctor With This Email Already Exists!" });
+  }
+
+  try {
+    const doctor = await User.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      nic,
+      dob,
+      gender,
+      password, 
+      role: "Doctor",
+      doctorDepartment,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "New Doctor Registered",
+      doctor,
+    });
+  } catch (error) {
+    console.error("Error while adding new doctor:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const getAllDoctors = async (req, res) => {
+  const doctors = await User.find({ role: "Doctor" });
+  res.status(200).json({
+    success: true,
+    doctors,
+  });
+};
+
+
+export const doctorLogin = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "Please provide both email and password." });
+  }
+  try {
+    const doctor = await User.findOne({ email, role: "Doctor" });
+    if (!doctor) {
+      return res.status(400).json({ success: false, message: "Invalid email or password." });
+    }
+    const isPasswordValid = await bcrypt.compare(password, doctor.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ success: false, message: "Invalid email or password." });
+    }
+    res.status(200).json({ success: true, message: "Login successful!", doctor });
+  } catch (error) {
+    console.error("Error during doctor login:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
 
 
 
+export const getUserDetails = async (req, res) => {
+  const user = req.user;
+  res.status(200).json({
+    success: true,
+    user,
+  });
+};
+
+export const logoutAdmin = async (req, res) => {
+  res
+    .status(201)
+    .cookie("adminToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: "Admin Logged Out Successfully.",
+    });
+};
+
+export const logoutPatient = async (req, res) => {
+  res
+    .status(201)
+    .cookie("patientToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: "Patient Logged Out Successfully.",
+    });
+};

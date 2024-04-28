@@ -1,0 +1,43 @@
+/* Dashboard.css */
+
+.doschedulise h1 {
+    color: #3fbbc0;
+  }
+  
+  .doschedulise h3 {
+    color: #3fbbc0;
+  }
+  
+  .doschedulise .font-semibold {
+    font-weight: 600;
+  }
+  
+  .doschedulise .font-bold {
+    font-weight: 700;
+  }
+  
+  .doschedulise .text-blue {
+    color: #007ace;
+  }
+  
+  .doschedulise .mt-2 {
+    margin-top: 0.5rem;
+  }
+  
+  .doschedulise table {
+    width: 100%;
+  }
+  
+  .doschedulise th,
+  .doschedulise td {
+    padding: 0.5rem 1rem;
+  }
+  
+  .doschedulise .border-b {
+    border-bottom: 1px solid #cbd5e0;
+  }
+  
+  .doschedulise .bg-gray-200 {
+    background-color: #edf2f7;
+  }
+  
