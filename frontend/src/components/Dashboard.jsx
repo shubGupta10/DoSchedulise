@@ -43,7 +43,7 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Replace this with your table data */}
+                 // use here real time data
                 </tbody>
               </table>
             </div>
