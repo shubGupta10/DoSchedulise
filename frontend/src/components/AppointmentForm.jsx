@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
+import "./Appointment.css"
 
 const AppointmentForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -30,13 +32,13 @@ const AppointmentForm = () => {
   ];
 
   const [doctors, setDoctors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/doctors",
-          { withCredentials: true }
+          "http://localhost:5000/api/v1/user/doctor/all",
         );
         setDoctors(data.doctors);
       } catch (error) {
@@ -51,7 +53,7 @@ const AppointmentForm = () => {
     try {
       const hasVisitedBool = Boolean(hasVisited);
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/appointment/post",
+        "http://localhost:5000/api/v1/appointment/post",
         {
           firstName,
           lastName,
@@ -68,12 +70,10 @@ const AppointmentForm = () => {
           address,
         },
         {
-          withCredentials: true,
           headers: { "Content-Type": "application/json" },
         }
       );
       toast.success(data.message);
-      // Reset form fields after successful submission
       setFirstName("");
       setLastName("");
       setEmail("");
@@ -82,130 +82,148 @@ const AppointmentForm = () => {
       setDob("");
       setGender("");
       setAppointmentDate("");
-      setDepartment("Pediatrics"); // Reset to default value
+      setDepartment("Pediatrics");
       setDoctorFirstName("");
       setDoctorLastName("");
       setAddress("");
       setHasVisited(false);
+      navigate('/');
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
   return (
-    <div className="container form-component appointment-form">
-      <h2>Appointment</h2>
-      <form onSubmit={handleAppointment}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="Mobile Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="number"
-            placeholder="NIC"
-            value={nic}
-            onChange={(e) => setNic(e.target.value)}
-          />
-          <input
-            type="date"
-            placeholder="Date of Birth"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          <input
-            type="date"
-            placeholder="Appointment Date"
-            value={appointmentDate}
-            onChange={(e) => setAppointmentDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <select
-            value={department}
-            onChange={(e) => {
-              setDepartment(e.target.value);
-              setDoctorFirstName("");
-              setDoctorLastName("");
-            }}
-          >
-            {departmentsArray.map((depart, index) => (
-              <option key={index} value={depart}>
-                {depart}
-              </option>
-            ))}
-          </select>
-          <select
-            value={`${doctorFirstName} ${doctorLastName}`}
-            onChange={(e) => {
-              const [firstName, lastName] = e.target.value.split(" ");
-              setDoctorFirstName(firstName);
-              setDoctorLastName(lastName);
-            }}
-            disabled={!department}
-          >
-            <option value="">Select Doctor</option>
-            {doctors
-              .filter((doctor) => doctor.doctorDepartment === department)
-              .map((doctor, index) => (
-                <option key={index} value={`${doctor.firstName} ${doctor.lastName}`}>
-                  {doctor.firstName} {doctor.lastName}
+    <div className="formbold-main-wrapper">
+      <div className="formbold-form-wrapper">
+        <h2>Appointment</h2>
+        <form onSubmit={handleAppointment}>
+          <div className="formbold-mb-5">
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="formbold-form-input"
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="formbold-form-input"
+            />
+          </div>
+          <div className="formbold-mb-5">
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="formbold-form-input"
+            />
+            <input
+              type="number"
+              placeholder="Mobile Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="formbold-form-input"
+            />
+          </div>
+          <div className="formbold-mb-5">
+            <input
+              type="number"
+              placeholder="NIC"
+              value={nic}
+              onChange={(e) => setNic(e.target.value)}
+              className="formbold-form-input"
+            />
+            <input
+              type="date"
+              placeholder="Date of Birth"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              className="formbold-form-input"
+            />
+          </div>
+          <div className="formbold-mb-5">
+            <select
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="formbold-form-input"
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <input
+              type="date"
+              placeholder="Appointment Date"
+              value={appointmentDate}
+              onChange={(e) => setAppointmentDate(e.target.value)}
+              className="formbold-form-input"
+            />
+          </div>
+          <div className="formbold-mb-5">
+            <select
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+                setDoctorFirstName("");
+                setDoctorLastName("");
+              }}
+              className="formbold-form-input"
+            >
+              {departmentsArray.map((depart, index) => (
+                <option key={index} value={depart}>
+                  {depart}
                 </option>
               ))}
-          </select>
-        </div>
-        <textarea
-          rows="10"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Address"
-        />
-        <div className="form-group">
-          <label>
-            Have you visited before?
-            <input
-              type="checkbox"
-              checked={hasVisited}
-              onChange={(e) => setHasVisited(e.target.checked)}
+            </select>
+            <select
+              value={`${doctorFirstName} ${doctorLastName}`}
+              onChange={(e) => {
+                const [firstName, lastName] = e.target.value.split(" ");
+                setDoctorFirstName(firstName);
+                setDoctorLastName(lastName);
+              }}
+              disabled={!department}
+              className="formbold-form-input"
+            >
+              <option value="">Select Doctor</option>
+              {doctors
+                .filter((doctor) => doctor.doctorDepartment === department)
+                .map((doctor, index) => (
+                  <option key={index} value={`${doctor.firstName} ${doctor.lastName}`}>
+                    {doctor.firstName} {doctor.lastName}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="formbold-mb-5">
+            <textarea
+              rows="10"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Address"
+              className="formbold-form-input"
             />
-          </label>
-        </div>
-        <button type="submit">GET APPOINTMENT</button>
-      </form>
+          </div>
+          <div className="formbold-mb-5">
+            <label>
+              Have you visited before?
+              <input
+                type="checkbox"
+                checked={hasVisited}
+                onChange={(e) => setHasVisited(e.target.checked)}
+              />
+            </label>
+          </div>
+          <div>
+            <button className="formbold-btn" type="submit">GET APPOINTMENT</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

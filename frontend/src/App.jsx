@@ -11,25 +11,6 @@ import Login from "./Pages/Login.jsx";
 
 const App = () => {
 
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:5000/api/v1/user/patient/me",
-  //         {
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       setIsAuthenticated(true);
-  //       setUser(response.data.user);
-  //     } catch (error) {
-  //       setUser({});
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
-
   return (
     <>
       <Router>
@@ -41,7 +22,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
-        <ToastContainer position="top-center" />
+        <ToastContainer position="top-right" />
       </Router>
     </>
   );
