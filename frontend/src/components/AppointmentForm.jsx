@@ -98,7 +98,7 @@ const AppointmentForm = () => {
       <div className="formbold-form-wrapper">
         <h2>Appointment</h2>
         <form onSubmit={handleAppointment}>
-          <div className="formbold-mb-5">
+          <div className="formbold-mb-5 ">
             <input
               type="text"
               placeholder="First Name"
@@ -106,6 +106,8 @@ const AppointmentForm = () => {
               onChange={(e) => setFirstName(e.target.value)}
               className="formbold-form-input"
             />
+            </div>
+            <div className="formbold-mb-5">
             <input
               type="text"
               placeholder="Last Name"
@@ -113,7 +115,7 @@ const AppointmentForm = () => {
               onChange={(e) => setLastName(e.target.value)}
               className="formbold-form-input"
             />
-          </div>
+            </div>
           <div className="formbold-mb-5">
             <input
               type="text"
