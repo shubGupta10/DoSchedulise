@@ -13,33 +13,36 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      let loginEndpoint = "";
+  
+      if (formData.roles.includes("Doctor")) {
+        loginEndpoint = "http://localhost:5000/api/v1/user/doctor/doclogin";
+      } else {
+        loginEndpoint = "http://localhost:5000/api/v1/user/patient/login";
+      }
+  
       const response = await axios.post(
-        "http://localhost:5000/api/v1/user/login",
+        loginEndpoint,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-
-      toast.success(response.data.message);
-
-      const role = response.data.user.role;
-
-      switch (role) {
-        case "Patient":
-          navigateTo("/appointment");
-          break;
-        case "Doctor":
+  
+      if (response && response.data) {
+        toast.success(response.data.message);
+  
+        if (formData.roles.includes("Doctor")) {
           navigateTo("/dashboard");
-          break;
-        // case "Admin":
-        //   navigateTo("/admin-dashboard");
-        //   break;
-        default:
-          break;
+        } else {
+          navigateTo("/appointment");
+        }
+      } else {
+        toast.error("Invalid response received from the server.");
       }
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
+  
 
   return (
     <>
@@ -83,7 +86,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
-            </div>
+              </div>
             <button type="submit" className="submit" id="LoginSubmit">
               Submit
             </button>

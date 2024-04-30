@@ -32,9 +32,8 @@ const Register = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      let registrationEndpoint = ""; // Initialize the endpoint variable
+      let registrationEndpoint = ""; 
       
-      // Determine the registration endpoint based on the user's role
       if (formData.roles.includes("Doctor")) {
         registrationEndpoint = "http://localhost:5000/api/v1/user/doctor/addnew";
       } else {
@@ -201,7 +200,6 @@ const Register = () => {
                   <option value="Cardiology">Cardiology</option>
                   <option value="Dermatology">Dermatology</option>
                   <option value="Neurology">Neurology</option>
-                  {/* Add more options as needed */}
                 </select>
               </label>
             )}

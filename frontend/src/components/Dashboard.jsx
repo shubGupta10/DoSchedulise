@@ -5,6 +5,7 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -20,6 +21,20 @@ const Dashboard = () => {
     };
 
     fetchAppointments();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchDoctors = async() => {
+      try {
+        const {data } = await axios.get('http://localhost:5000/api/v1/user/doctor/all');
+        setDoctors(data.doctors);
+      } catch (error) {
+        console.log("Error in fetching doctors", error);
+      }
+    }
+
+    fetchDoctors();
   }, []);
 
   const handleUpdateStatus = async (appointmentId, status) => {
@@ -62,7 +77,7 @@ const Dashboard = () => {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
               <p className="font-semibold">Registered Doctors</p>
-              <h3 className="font-bold text-blue mt-2">10</h3>
+              <h3 className="font-bold text-blue mt-2">{doctors.length}</h3>
             </div>
           </div>
           <div className="mt-8 bg-white rounded-lg shadow-md">
@@ -85,7 +100,7 @@ const Dashboard = () => {
                   {appointments && appointments.length > 0 ? (
                     appointments.map((appointment) => (
                       <tr key={appointment._id}>
-                        <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
+                        <td>{`${appointment.firstName}  ${appointment.lastName}`}</td>
                         <td>{appointment.appointment_date.substring(0, 16)}</td>
                         <td>{`${appointment.doctor.firstName} ${appointment.doctor.lastName}`}</td>
                         <td>{appointment.department}</td>

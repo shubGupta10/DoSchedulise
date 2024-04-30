@@ -58,7 +58,7 @@ const AppointmentForm = () => {
         }
       );
       toast.success(data.message);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       toast.error(error.response.data.message);
     }
