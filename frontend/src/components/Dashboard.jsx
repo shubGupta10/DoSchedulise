@@ -1,11 +1,46 @@
-import React, { useEffect } from 'react';
-import './Dashboard.css'; 
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify"; // Assuming you're using react-toastify for notifications
+import "./Dashboard.css";
 
 const Dashboard = () => {
+  const [appointments, setAppointments] = useState([]);
 
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:5000/api/v1/appointment/getall"
+        );
+        setAppointments(data.appointments);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+        setAppointments([]);
+      }
+    };
 
+    fetchAppointments();
+  }, []);
 
+  const handleUpdateStatus = async (appointmentId, status) => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:5000/api/v1/appointment/update/${appointmentId}`,
+        { status }
+      );
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) =>
+          appointment._id === appointmentId
+            ? { ...appointment, status }
+            : appointment
+        )
+      );
+      toast.success(data.message);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <>
@@ -21,7 +56,9 @@ const Dashboard = () => {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
               <p className="font-semibold">Total Appointments</p>
-              <h3 className="font-bold text-blue mt-2">1500</h3>
+              <h3 className="font-bold text-blue mt-2">
+                {appointments.length}
+              </h3>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
               <p className="font-semibold">Registered Doctors</p>
@@ -29,7 +66,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="mt-8 bg-white rounded-lg shadow-md">
-            <h5 className="font-semibold py-4 px-6 bg-gray-200 border-b border-gray-300">Appointments</h5>
+            <h5 className="font-semibold py-4 px-6 bg-gray-200 border-b border-gray-300">
+              Appointments
+            </h5>
             <div className="p-6">
               <table className="w-full">
                 <thead>
@@ -43,7 +82,48 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                 // use here real time data
+                  {appointments && appointments.length > 0 ? (
+                    appointments.map((appointment) => (
+                      <tr key={appointment._id}>
+                        <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
+                        <td>{appointment.appointment_date.substring(0, 16)}</td>
+                        <td>{`${appointment.doctor.firstName} ${appointment.doctor.lastName}`}</td>
+                        <td>{appointment.department}</td>
+                        <td>
+                          <select
+                            className={
+                              appointment.status === "Pending"
+                                ? "value-pending"
+                                : appointment.status === "Accepted"
+                                ? "value-accepted"
+                                : "value-rejected"
+                            }
+                            value={appointment.status}
+                            onChange={(e) =>
+                              handleUpdateStatus(
+                                appointment._id,
+                                e.target.value
+                              )
+                            }
+                          >
+                            <option value="Pending" className="value-pending">
+                              Pending
+                            </option>
+                            <option value="Accepted" className="value-accepted">
+                              Accepted
+                            </option>
+                            <option value="Rejected" className="value-rejected">
+                              Rejected
+                            </option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="6">No Appointments Found!</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

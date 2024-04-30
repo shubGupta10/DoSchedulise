@@ -18,8 +18,24 @@ const Login = () => {
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
+
       toast.success(response.data.message);
-      navigateTo("/appointment");
+
+      const role = response.data.user.role;
+
+      switch (role) {
+        case "Patient":
+          navigateTo("/appointment");
+          break;
+        case "Doctor":
+          navigateTo("/dashboard");
+          break;
+        // case "Admin":
+        //   navigateTo("/admin-dashboard");
+        //   break;
+        default:
+          break;
+      }
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -67,7 +83,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
-              </div>
+            </div>
             <button type="submit" className="submit" id="LoginSubmit">
               Submit
             </button>
