@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./Appointment.css";
+import Navbar from "./Navbar";
+
 
 const AppointmentForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -65,6 +67,10 @@ const AppointmentForm = () => {
   };
 
   return (
+    <>
+    <div>
+    <Navbar/>
+    </div>
     <div className="appointment-form-container">
       <h2>Appointment</h2>
       <form onSubmit={handleAppointment} className="appointment-form">
@@ -184,6 +190,7 @@ const AppointmentForm = () => {
         <button type="submit" className="btn-submit">GET APPOINTMENT</button>
       </form>
     </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import "./Register.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("Patient");
 
   const navigateTo = useNavigate();
 
@@ -15,10 +16,10 @@ const Login = () => {
     try {
       let loginEndpoint = "";
   
-      if (formData.roles.includes("Doctor")) {
+      if (role === "Doctor") {
         loginEndpoint = "http://localhost:5000/api/v1/user/doctor/doclogin";
-      } else {
-        loginEndpoint = "http://localhost:5000/api/v1/user/patient/login";
+      } else if (role === "Patient") {
+        loginEndpoint = "http://localhost:5000/api/v1/user/login";
       }
   
       const response = await axios.post(
@@ -30,9 +31,9 @@ const Login = () => {
       if (response && response.data) {
         toast.success(response.data.message);
   
-        if (formData.roles.includes("Doctor")) {
+        if (role === "Doctor") {
           navigateTo("/dashboard");
-        } else {
+        } else if(role === "Patient") {
           navigateTo("/appointment");
         }
       } else {
@@ -81,12 +82,21 @@ const Login = () => {
                   placeholder="Password"
                   type="password"
                   className="input"
-                  id="LoginInput"
+                  id="LoginInputPass"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
               </div>
+              <div className="flex">
+              <label>
+                Select Role:
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value="Doctor">Doctor</option>
+                  <option value="Patient">Patient</option>
+                </select>
+              </label>
+            </div>
             <button type="submit" className="submit" id="LoginSubmit">
               Submit
             </button>

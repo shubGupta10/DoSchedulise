@@ -44,20 +44,12 @@ export const login = async (req, res) => {
     return res.status(400).json({ success: false, message: "Please provide both email and password." });
   }
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email,  role: "Patient" });
     if (!user) {
-      return res.status(400).json({ success: false, message: "Invalid email or password." });
+      return res.status(400).json({ success: false, message: "User not found." });
     }
 
-    // Check if the user object has a password property
-    if (!user.password) {
-      return res.status(400).json({ success: false, message: "User password is not set." });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ success: false, message: "Invalid email or password." });
-    }
+  
 
     res.status(200).json({ success: true, message: "Login successful!", user });
   } catch (error) {

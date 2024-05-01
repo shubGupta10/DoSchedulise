@@ -181,6 +181,11 @@ body{
   #LoginInput{
     width: 330px;
   }
+  
+
+  #LoginInputPass{
+    width: 330px;
+  }
 
   #LoginSubmit{
     margin-left: 100px;
