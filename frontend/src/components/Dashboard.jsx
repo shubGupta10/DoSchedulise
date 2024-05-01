@@ -1,8 +1,41 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./Dashboard.css"
 import Navbar from './Navbar';
 
+
 const Dashboard = () => {
+
+  const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:5000/api/v1/user/doctor/all');
+        setDoctors(data.doctors);
+      } catch (error) {
+        console.error("Error in fetching doctors", error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:5000/api/v1/appointment/getall");
+        setAppointments(data.appointments);
+      } catch (error) {
+        console.error("Error in fetching appointments", error);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
+
+
+
   return (
     <>
     <Navbar/>
@@ -14,7 +47,7 @@ const Dashboard = () => {
           <h1>Recent Missions</h1>
 
           <div className="row_custom">
-            <p>You have <span>20</span> upcoming missions</p>
+            <p>You have <span>{appointments.length}</span> upcoming missions</p>
             <a href="#">View all</a>
           </div>
 
@@ -22,8 +55,8 @@ const Dashboard = () => {
           {/* Replace this with dynamic content from your database */}
           <div className="mission_card_custom">
             <div className="mission_details_custom">
-              <div className="img_custom">
-                <i className="fas fa-user-md"></i>
+              <div className="img_custom text-[#3fbbc0]">
+                <i className="fas fa-user-md "></i>
               </div>
               <div className="text_custom">
                 <h2>Captain America</h2>

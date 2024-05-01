@@ -1,3 +1,5 @@
+
+
 .container_custom {
   display: flex;
   width: 100%;
@@ -119,8 +121,8 @@ h1 {
   font-size: 3rem;
   margin-left: 1rem;
   padding: 10px;
-  color: rgb(82, 22, 138);
-  background: rgb(216, 205, 226);
+  color: #3fbbc0;
+  background: rgb(249, 245, 253);
 }
 
 .mission_details_custom .text_custom {
