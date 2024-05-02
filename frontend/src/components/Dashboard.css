@@ -1,5 +1,4 @@
 
-
 .container_custom {
   display: flex;
   width: 100%;
@@ -62,7 +61,7 @@ nav i {
   width: 100%;
   background: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 32px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgb(14, 179, 201);

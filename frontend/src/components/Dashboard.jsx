@@ -42,7 +42,7 @@ const Dashboard = () => {
     <Navbar/>
       <section className="main_custom">
         <div className="main-top_custom">
-          <p>Welcome to Scheduler Dashboard!</p>
+          <p>Welcome to DoSchedulise Dashboard!</p>
         </div>
         <div className="main-body_custom">
           <h1>Recent Appointments</h1>
@@ -61,13 +61,14 @@ const Dashboard = () => {
                   <h2>{appointment.firstName} {appointment.lastName}</h2>
                   <span>Department: {appointment.department}</span>
                   <br/>
-                  <span>Status: {appointment.status}</span>
+                  <span>Address: {appointment.address}</span>
                 </div>
               </div>
               <div className="mission_time_custom">
                 <h4>Appointment Date: {appointment.appointment_date}</h4>
                 <h4>Doctor: {appointment.doctor.firstName} {appointment.doctor.lastName}</h4>
-                <span>Address: {appointment.address}</span>
+                <span>Status: {appointment.status}</span>
+                
               </div>
             </div>
           ))}

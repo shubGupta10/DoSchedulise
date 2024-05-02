@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/Dashboard.jsx";
 import Login from "./Pages/Login.jsx";
+import Profile from "./Pages/Profile.jsx";
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Routes>
         <ToastContainer position="top-right" />
       </Router>

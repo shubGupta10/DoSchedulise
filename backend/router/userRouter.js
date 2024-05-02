@@ -20,7 +20,7 @@ router.post("/patient/logout", logoutPatient);
 
 // Routes for admin registration, login, and logout
 router.post("/admin/addnew", addNewAdmin);
-router.post("/admin/login", login); // Assuming admin login can use the same function as regular login
+router.post("/admin/login", login); 
 router.post("/admin/logout", logoutAdmin);
 
 // Routes for doctor registration, retrieval, and login (assuming similar to admin)

@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
+  const [activeLink, setActiveLink] = useState('/appointment'); 
 
-  const navigate = useNavigate();
+  const handleLinkClick = (to) => {
+    setActiveLink(to);
+  };
 
-    const logout = async () => {
-      try {
-        await axios.post('http://localhost:5000/api/v1/user/patient/logout');
-        toast.success(response.data.message);
-        navigate('/');
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
+  const logout = async () => {
+    try {
+      await axios.post('http://localhost:5000/api/v1/user/patient/logout');
+      toast.success(response.data.message);
+      setActiveLink('/');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
+  };
 
   return (
     <nav>
@@ -27,21 +30,54 @@ const Navbar = () => {
       <label className="logo">DOSCHEDULISE</label>
       <ul>
         <li>
-          <Link className="active" to="/appointment">
+          <NavLink
+            to="/appointment"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/appointment')}
+          >
             Appointment
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/dashboard')}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/services"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/services')}
+          >
+            Doctors
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/services"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/services')}
+          >
+            Services
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/profile"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/profile')}
+          >
+            Profile
+          </NavLink>
+        </li>
+        <li>
+          <Link to="/" className="btn btn-danger" onClick={logout}>
+            Logout
           </Link>
-        </li>
-        <li>
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/">Services</Link>
-        </li>
-        <li>
-          <Link to="/">Contact</Link>
-        </li>
-        <li>
-          <Link to="/"  class="btn btn-danger" onClick={logout}>Logout</Link>
         </li>
       </ul>
     </nav>
