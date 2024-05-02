@@ -207,14 +207,9 @@ export const logoutAdmin = async (req, res) => {
 };
 
 export const logoutPatient = async (req, res) => {
-  res
-    .status(201)
-    .cookie("patientToken", "", {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-    })
-    .json({
-      success: true,
-      message: "Patient Logged Out Successfully.",
-    });
+  res.clearCookie("patientToken").status(201).json({
+    success: true,
+    message: "Patient Logged Out Successfully.",
+  });
 };
+

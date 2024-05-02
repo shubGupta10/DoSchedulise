@@ -1,8 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
+    const logout = async () => {
+      try {
+        await axios.post('http://localhost:5000/api/v1/user/patient/logout');
+        toast.success(response.data.message);
+        navigate('/');
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    }
+
   return (
     <nav>
       <input type="checkbox" id="check" />
@@ -26,7 +41,7 @@ const Navbar = () => {
           <Link to="/">Contact</Link>
         </li>
         <li>
-          <Link to="/">Feedback</Link>
+          <Link to="/"  class="btn btn-danger" onClick={logout}>Logout</Link>
         </li>
       </ul>
     </nav>
