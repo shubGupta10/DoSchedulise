@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -49,14 +49,26 @@ const userSchema = new mongoose.Schema({
     required: [true, "User Role Required!"],
     enum: ["Patient", "Doctor", "Admin"],
   },
-  doctorDepartment:{
+  doctorDepartment: {
     type: String,
   },
 
 });
 
-
-
+userSchema.methods.generateToken = async function () {
+  try {
+    return jwt.sign({
+      userId: this._id.toString(),
+      email: this.email,
+    },
+    process.env.JWT_SECRET_KEY, {
+      expiresIn: "5d",
+    }
+    );
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 
 export const User = mongoose.model("User", userSchema);

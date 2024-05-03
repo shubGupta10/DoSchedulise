@@ -29,8 +29,9 @@ export const patientRegister = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "User Registered",
-      user,
+      message: user,
+      token: await user.generateToken(), 
+      userId: user._id.toString(),
     });
   } catch (error) {
     console.error("Error during patient registration:", error);
@@ -38,25 +39,42 @@ export const patientRegister = async (req, res) => {
   }
 };
 
+//login part
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
     return res.status(400).json({ success: false, message: "Please provide both email and password." });
   }
   try {
-    const user = await User.findOne({ email,  role: "Patient" });
-    if (!user) {
+    const userExist = await User.findOne({ email });
+    if (!userExist) {
       return res.status(400).json({ success: false, message: "User not found." });
     }
+    const isValidPassword = await bcrypt.compare(password, userExist.password);
 
-  
+    if(isValidPassword){
 
-    res.status(200).json({ success: true, message: "Login successful!", user });
+      //  console.log("Generating token...");
+      //  const token = await userExist.generateToken();
+      //  console.log("Token generated:", token);
+
+      res.status(200).json({
+        message: "Login Successful",
+        token: await userExist.generateToken(), 
+        userId: userExist._id.toString(),
+      });
+    }else{
+      res.status(401).json({message: "Invalid email or password"})
+    }
+
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 export const addNewAdmin = async (req, res) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } = req.body;
