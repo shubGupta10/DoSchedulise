@@ -113,6 +113,7 @@ export const addNewAdmin = async (req, res) => {
   }
 };
 
+
 export const addNewDoctor = async (req, res) => {
   const {
     firstName,
@@ -126,6 +127,7 @@ export const addNewDoctor = async (req, res) => {
     doctorDepartment,
   } = req.body;
 
+  // Validate if all required fields are provided
   if (
     !firstName ||
     !lastName ||
@@ -140,14 +142,18 @@ export const addNewDoctor = async (req, res) => {
     return res.status(400).json({ success: false, message: "Please Fill Full Form!" });
   }
 
-  const isRegistered = await User.findOne({ email });
-
-  if (isRegistered) {
-    return res.status(400).json({ success: false, message: "Doctor With This Email Already Exists!" });
-  }
-
   try {
-    const doctor = await User.create({
+    // Check if the email is already registered
+    const isRegistered = await User.findOne({ email });
+    if (isRegistered) {
+      return res.status(400).json({ success: false, message: "Doctor With This Email Already Exists!" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new doctor document in the database
+    const newDoctor = await User.create({
       firstName,
       lastName,
       email,
@@ -155,21 +161,28 @@ export const addNewDoctor = async (req, res) => {
       nic,
       dob,
       gender,
-      password, 
+      password: hashedPassword,
       role: "Doctor",
       doctorDepartment,
     });
 
+    // Generate JWT token for authentication
+    const token = await newDoctor.generateToken();
+
+    // Send success response with the newly created doctor document and token
     res.status(200).json({
       success: true,
       message: "New Doctor Registered",
-      doctor,
+      doctor: newDoctor,
+      token,
+      userId: newDoctor._id.toString(),
     });
   } catch (error) {
     console.error("Error while adding new doctor:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 export const getAllDoctors = async (req, res) => {
   const doctors = await User.find({ role: "Doctor" });
@@ -191,10 +204,20 @@ export const doctorLogin = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid email or password." });
     }
     const isPasswordValid = await bcrypt.compare(password, doctor.password);
-    if (!isPasswordValid) {
+
+
+    if (isPasswordValid) {
+     
+      res.status(200).json({
+        message: "Login Successful",
+        token: await doctor.generateToken(), 
+        userId: doctor._id.toString(),
+      });
+    } else{
       return res.status(400).json({ success: false, message: "Invalid email or password." });
     }
-    res.status(200).json({ success: true, message: "Login successful!", doctor });
+
+    
   } catch (error) {
     console.error("Error during doctor login:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });

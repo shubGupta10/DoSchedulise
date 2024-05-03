@@ -30,6 +30,8 @@ const Login = () => {
   
       if (response && response.data) {
         toast.success(response.data.message);
+
+        localStorage.setItem("token", response.data.token);
   
         if (role === "Doctor") {
           navigateTo("/dashboard");

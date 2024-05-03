@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
+  const token = localStorage.getItem("token");
+  const navigateTo = useNavigate();
   const [activeLink, setActiveLink] = useState('/appointment'); 
 
   const handleLinkClick = (to) => {
     setActiveLink(to);
   };
 
+
+
   const logout = async () => {
-    try {
-      await axios.post('http://localhost:5000/api/v1/user/patient/logout');
-      toast.success(response.data.message);
-      setActiveLink('/');
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
+    localStorage.removeItem("token");
+    navigateTo("/login");
+    toast.success("User logout Successful");
+    
+  }
 
   return (
     <nav>
@@ -75,7 +75,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <Link to="/" className="btn btn-danger" onClick={logout}>
+          <Link to='/login' className="btn btn-danger" onClick={logout}>
             Logout
           </Link>
         </li>
