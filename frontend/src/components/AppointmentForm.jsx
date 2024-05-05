@@ -72,7 +72,7 @@ const AppointmentForm = () => {
     <div className="mainContainer container">
         <div className="textContainer">
           <h1 className="maintitle">Book Your Appointment Now</h1>
-          <p className="subtitle">Welcome to our appointment booking page. Please fill out the form below to schedule an appointment with our doctors.</p>
+          <p className="subtitle">Please fill out the form below to schedule an appointment with our doctors.</p>
         </div>
         <div className="appointment-form-container container">
           <form onSubmit={handleAppointment} className="appointment-form">

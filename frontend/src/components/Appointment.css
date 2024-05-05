@@ -11,8 +11,12 @@ body{
 
 .subtitle {
   font-size: 28px;
-  color: #555;
+  color: #000000;
   margin-bottom: 20px;
+}
+
+.textContainer{
+  margin-bottom: 30px;
 }
 
 
@@ -65,8 +69,8 @@ body{
 
 .btn-submit {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #3fbbc0;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -75,4 +79,23 @@ body{
 
 .btn-submit:hover {
   background-color: #0056b3;
+}
+
+
+@media  (max-width: 768px) {
+  .textContainer{
+    padding: 10px;
+  }
+
+  .maintitle{
+    width: 95%;
+    font-size: 40px;
+  }
+  .subtitle{
+    width: 95%;
+    font-size: 20px;
+  }
+  .appointment-form{
+    gap: 15px;
+  }
 }
