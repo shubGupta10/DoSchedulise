@@ -72,6 +72,20 @@ export const postAppointment = async (req, res) => {
 };
 
 
+export const getAppointmentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const appointment = await Appointment.findById(id);
+    if (!appointment) {
+      return res.status(404).json({ success: false, message: "Appointment not found!" });
+    }
+    res.status(200).json({ success: true, appointment });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch appointment", error: error.message });
+  }
+};
+
 
 
 export const getAllAppointments = async (req, res) => {

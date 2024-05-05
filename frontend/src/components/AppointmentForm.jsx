@@ -155,7 +155,7 @@ const AppointmentForm = () => {
           <option value="Pediatrics">Pediatrics</option>
           <option value="Orthopedics">Orthopedics</option>
           <option value="Cardiology">Cardiology</option>
-          {/* Add other departments */}
+          <option value="Neurology">Neurology</option>
         </select>
         <select
           value={doctor}

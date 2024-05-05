@@ -227,12 +227,16 @@ export const doctorLogin = async (req, res) => {
 
 
 export const getUserDetails = async (req, res) => {
-  const user = req.user;
+  const user = req.body;
+  const userId = user._id; 
   res.status(200).json({
     success: true,
-    user,
+    user: {
+      _id: userId,
+    },
   });
 };
+
 
 export const logoutAdmin = async (req, res) => {
   res
