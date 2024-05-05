@@ -90,7 +90,35 @@
 @media (max-aspect-ratio: 7/10) {
     .chatContainer{
         background-color: white;
-        height: 60%;
-        width: 50%;
+        height: 100% !important;
+        width: 100%;
     }
+
+    .header{
+        height: 10% !important;
+    }
+
+    .header>h2{
+        margin: 8vw !important;
+        font-size: 5vw !important;
+    }
+
+    .header img{
+        margin: 6vw !important;
+        transform: scale(2) !important;
+    }
+    .header>img:hover{
+        transform: scale(3.2) !important;
+    }
+    .chatBox{
+        height: 80% !important;
+    }
+    .inputBox{
+        height: 10% !important;
+    }
+    #chatInput{
+        padding: 4vmax !important;
+        font-size: 4vw !important;
+    }
+    
 }
