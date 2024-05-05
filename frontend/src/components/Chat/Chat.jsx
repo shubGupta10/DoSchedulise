@@ -74,7 +74,7 @@ const Chat = () => {
           {messages.map((item,i) => <Message user={item.id === id ? '' : item.user }  message={item.message} classs={item.id === id ? 'right' : 'left' } /> )}
         </ReactScrollToBottom>
         <div className="inputBox">
-            <input onKeyPress={(e) => e.key === "Enter" ? send() : null } type="text" id="chatInput"/>
+            <input placeholder="Enter your Message" onKeyPress={(e) => e.key === "Enter" ? send() : null } type="text" id="chatInput"/>
             <button onClick={send} className="sendBtn"><img src={sendLogo} alt="Send" /></button>
         </div>
       </div>
