@@ -3,6 +3,7 @@ import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import {Link} from "react-router-dom";
 import "./Home.css"
+import Footer from '../components/Footer';
 
 function Home() {
 
@@ -888,64 +889,7 @@ function Home() {
 
 
 {/* <!-- ======= Footer ======= --> */}
-<footer id="footer">
-            <div className="footer-top">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-3 col-md-6">
-                            <div className="footer-info">
-                                <h3>DoSchedulise</h3>
-                                <p>
-                                    123 Main Street <br />
-                                    New York, NY 10001<br /><br />
-                                    <strong>Phone:</strong> +1 123 456 7890<br />
-                                    <strong>Email:</strong> info@doschedulise.com<br />
-                                </p>
-                                <div className="social-links mt-3">
-                                    <a href="#" className="twitter"><i className="bx bxl-twitter"></i></a>
-                                    <a href="#" className="facebook"><i className="bx bxl-facebook"></i></a>
-                                    <a href="#" className="instagram"><i className="bx bxl-instagram"></i></a>
-                                    <a href="#" className="google-plus"><i className="bx bxl-skype"></i></a>
-                                    <a href="#" className="linkedin"><i className="bx bxl-linkedin"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-2 col-md-6 footer-links">
-                            <h4>Quick Links</h4>
-                            <ul>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">About</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-3 col-md-6 footer-links">
-                            <h4>Our Services</h4>
-                            <ul>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Appointment Scheduling</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Telemedicine</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Medical Records Management</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Patient Communication</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-4 col-md-6 footer-newsletter">
-                            <h4>Newsletter</h4>
-                            <p>Subscribe to receive updates and exclusive offers.</p>
-                            <form action="" method="post">
-                                <input type="email" name="email" placeholder="Enter your email" /><input type="submit" value="Subscribe" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="container">
-                <div className="credits">
-                    &copy; Copyright <strong><span>DoSchedulise</span></strong>.
-                    All Rights Reserved
-                </div>
-                <div className="credits">Designed by Shubham Kumar Gupta</div>
-            </div>
-        </footer>
+<Footer/>
 {/* <!-- End Footer --> */}
 
 

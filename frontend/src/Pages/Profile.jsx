@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import Footer from "../components/Footer";
 
 const Profile = () => {
     const [user, setUser] = useState({});

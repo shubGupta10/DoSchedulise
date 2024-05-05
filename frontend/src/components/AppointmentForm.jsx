@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./Appointment.css";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 
 const AppointmentForm = () => {
@@ -193,6 +194,7 @@ const AppointmentForm = () => {
       </form>
     </div>
     </div>
+    <Footer/>
     </>
   );
 };

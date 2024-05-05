@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import "./Dashboard.css"
 import Navbar from './Navbar';
 import axios from 'axios'
+import Footer from './Footer';
 
 
 const Dashboard = () => {
@@ -75,6 +76,7 @@ const Dashboard = () => {
 
         </div>
       </section>
+      <Footer/>
       </>
   );
 };
