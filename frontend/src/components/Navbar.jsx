@@ -49,20 +49,20 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/liveChat"
+            to="/doctors"
             activeClassName="active"
-            onClick={() => handleLinkClick('/Live chat')}
+            onClick={() => handleLinkClick('/doctors')}
           >
             Doctors
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/services"
+            to="/join"
             activeClassName="active"
-            onClick={() => handleLinkClick('/services')}
+            onClick={() => handleLinkClick('/join')}
           >
-            Services
+            Live Chat
           </NavLink>
         </li>
         <li>

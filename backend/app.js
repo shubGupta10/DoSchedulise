@@ -23,6 +23,11 @@ server.listen(process.env.PORT, () => {
   console.log(`Server listening at port ${process.env.PORT}`);
 });
 
+
+app.get("/testing" , (req,res)=> {
+  res.send("Testing");
+})
+
 app.use(
   cors({
     origin: "*",
