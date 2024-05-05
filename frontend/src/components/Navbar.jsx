@@ -49,9 +49,9 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/services"
+            to="/liveChat"
             activeClassName="active"
-            onClick={() => handleLinkClick('/services')}
+            onClick={() => handleLinkClick('/Live chat')}
           >
             Doctors
           </NavLink>

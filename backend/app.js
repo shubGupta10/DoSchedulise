@@ -1,19 +1,32 @@
 import express from "express";
 import { dbConnection } from "./database/dbConnection.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 import userRouter from "./router/userRouter.js";
-import appointmentRouter from './router/appointmentRouter.js' 
+import appointmentRouter from "./router/appointmentRouter.js";
+import http from "http";
+import { Server } from "socket.io"; // Changed import to Server from socket.io
 
 const app = express();
+const server = http.createServer(app);
 dotenv.config();
+
+const io = new Server(server);
+
+io.on("connection", () => {
+  console.log("New Connection");
+})
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server listening at port ${process.env.PORT}`);
+});
 
 app.use(
   cors({
     origin: "*",
-    method: ["GET", "POST", "DELETE", "PUT"],
+    methods: ["GET", "POST", "DELETE", "PUT"], 
     credentials: true,
   })
 );
