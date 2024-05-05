@@ -42,7 +42,6 @@
 
  height: 70%;
  box-sizing: border-box;
- 
 }
 
 .inputBox{
@@ -85,4 +84,13 @@
 } 
 .sendBtn:hover img{
     transform: translateX(10px);
+}
+
+
+@media (max-aspect-ratio: 7/10) {
+    .chatContainer{
+        background-color: white;
+        height: 60%;
+        width: 50%;
+    }
 }

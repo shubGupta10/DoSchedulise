@@ -59,3 +59,40 @@ body{
 .joinbtn:hover{
     background-color: rgb(180, 27, 58);
 }
+
+@media (max-aspect-ratio: 7/10) {
+
+    .JoinPage{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start !important;
+    }
+       .JoinContainer{
+        margin-top: 30vw !important;
+        width: 100% !important;
+       }
+
+       .JoinContainer > img{
+        width: 10vmax !important;
+       }
+
+       .JoinContainer > h1{
+        font-size: 6vw !important;
+        width: 55vw !important;
+        border-bottom: 0.6vw white !important;
+        padding: 3vw !important;
+       }
+
+       #joinInput{
+        width: 65vw !important;
+        padding: 4vw !important;
+        font-size: 5vw !important;
+        margin: 5vw !important;
+       }
+
+       .joinbtn{
+        width: 65vw !important;
+        padding: 4vw !important;
+        font-size: 5vw !important;
+       }
+}
