@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 import "./Appointment.css";
+import Navbar from "./Navbar";
+
 
 const AppointmentForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -67,137 +68,131 @@ const AppointmentForm = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="appointment-form-container">
-        <div className="appointment-image">
-          <img
-            src="https://i.pinimg.com/564x/d3/31/81/d331816ba7e378db2333cd567ccaa390.jpg"
-            alt=""
-          />
+    <Navbar/>
+    <div className="mainContainer container">
+        <div className="textContainer">
+          <h1 className="maintitle">Book Your Appointment Now</h1>
+          <p className="subtitle">Welcome to our appointment booking page. Please fill out the form below to schedule an appointment with our doctors.</p>
         </div>
-        <form onSubmit={handleAppointment} className="appointment-form">
-          <h2>Appointment</h2>
-          <div className="form-group">
-            <input
-              type="text"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="form-control"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="form-control"
-              required
-            />
-          </div>
+        <div className="appointment-form-container container">
+          <form onSubmit={handleAppointment} className="appointment-form">
+        <div className="form-group">
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control"
-            required
-          />
-          <input
-            type="tel"
-            placeholder="Mobile Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             className="form-control"
             required
           />
           <input
             type="text"
-            placeholder="NIC"
-            value={nic}
-            onChange={(e) => setNic(e.target.value)}
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             className="form-control"
             required
           />
-          <input
-            type="date"
-            placeholder={dob ? "" : "Date of Birth"}
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-            className="form-control"
-            required
-          />
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className="form-control"
-            required
-          >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          <input
-            type="date"
-            placeholder="Appointment Date"
-            value={appointmentDate}
-            onChange={(e) => setAppointmentDate(e.target.value)}
-            className="form-control"
-            required
-          />
-          <select
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            className="form-control"
-            required
-          >
-            <option value="">Select Department</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Cardiology">Cardiology</option>
-            {/* Add other departments */}
-          </select>
-          <select
-            value={doctor}
-            onChange={(e) => setDoctor(e.target.value)}
-            className="form-control"
-            required
-          >
-            <option value="">Select Doctor</option>
-            {doctors
-              .filter((doctor) => doctor.doctorDepartment === department)
-              .map((doctor, index) => (
-                <option
-                  key={index}
-                  value={`${doctor.firstName} ${doctor.lastName}`}
-                >
-                  {doctor.firstName} {doctor.lastName}
-                </option>
-              ))}
-          </select>
-          <textarea
-            rows="5"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="form-control"
-            required
-          />
-          <div className="form-group">
-            <label>
-              Have you visited before?
-              <input
-                type="checkbox"
-                checked={hasVisited}
-                onChange={(e) => setHasVisited(e.target.checked)}
-              />
-            </label>
-          </div>
-          <button type="submit" className="btn-submit">
-            GET APPOINTMENT
-          </button>
-        </form>
-      </div>
+        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-control"
+          required
+        />
+        <input
+          type="Number"
+          placeholder="Mobile Number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="form-control"
+          required
+        />
+        <input
+          type="Number"
+          placeholder="NIC"
+          value={nic}
+          onChange={(e) => setNic(e.target.value)}
+          className="form-control"
+          required
+        />
+        <input
+          type="date"
+          placeholder={dob ? "" : "Date of Birth"}
+          value={dob}
+          onChange={(e) => setDob(e.target.value)}
+          className="form-control"
+          required
+        />
+        <select
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+          className="form-control"
+          required
+        >
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <input
+          type="date"
+          placeholder="Appointment Date"
+          value={appointmentDate}
+          onChange={(e) => setAppointmentDate(e.target.value)}
+          className="form-control"
+          required
+        />
+        <select
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          className="form-control"
+          required
+        >
+          <option value="">Select Department</option>
+          <option value="Pediatrics">Pediatrics</option>
+          <option value="Orthopedics">Orthopedics</option>
+          <option value="Cardiology">Cardiology</option>
+          {/* Add other departments */}
+        </select>
+        <select
+          value={doctor}
+          onChange={(e) => setDoctor(e.target.value)}
+          className="form-control"
+          required
+        >
+          <option value="">Select Doctor</option>
+          {doctors
+            .filter((doctor) => doctor.doctorDepartment === department)
+            .map((doctor, index) => (
+              <option key={index} value={`${doctor.firstName} ${doctor.lastName}`}>
+                {doctor.firstName} {doctor.lastName}
+              </option>
+            ))}
+        </select>
+        <textarea
+          rows="5"
+          placeholder="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="form-control"
+          required
+        />
+        <div className="form-group">
+          <label>
+            Have you visited before?
+            <input
+              type="checkbox"
+              checked={hasVisited}
+              onChange={(e) => setHasVisited(e.target.checked)}
+            />
+          </label>
+        </div>
+        <button type="submit" className="btn-submit">GET APPOINTMENT</button>
+      </form>
+    </div>
+    </div>
     </>
   );
 };
