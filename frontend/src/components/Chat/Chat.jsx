@@ -3,6 +3,7 @@ import { user } from "../Join/Join.jsx";
 import socketIo from 'socket.io-client'
 import { toast } from "react-toastify";
 import sendLogo from '../../ChatLoginImage/send.png';
+import "./Chat.css";
 
 const ENDPOINT= 'http://localhost:5000';
 
@@ -16,6 +17,19 @@ const Chat = () => {
     socket.on("connect", () => {
         toast.success("User Connected");
     })
+    socket.emit('joined',{user})
+
+
+
+    socket.on('welcome', (data) => {
+      console.log(data.user, data.message );
+    })
+
+    socket.on('userJoined', (data) => {
+      console.log(data.user.data.message);
+    })
+
+
    }, []);
 
   return (
