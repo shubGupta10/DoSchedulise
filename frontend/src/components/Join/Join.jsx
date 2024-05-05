@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Join.css";
 import logo from "../../ChatLoginImage/logo.png";
 import { Link } from "react-router-dom";
+import Navbar from '../Navbar.jsx'
 
 let user;
 const senduser = () => {
@@ -14,11 +15,13 @@ const Join = () => {
   const [name, setName] = useState("");
 
   return (
+    <>
+    <Navbar/>
     <div className="JoinPage">
+      <img id="videoCall" src="https://i.pinimg.com/564x/28/30/86/283086f0fcb06130cf5eb4c0b27b3545.jpg" alt="Online video call" />
       <div className="JoinContainer">
-        <img src={logo} alt="logo" />
         <h1>Live Chat</h1>
-        <input onChange={(e) => setName( e.target.value)} placeholder="Enter Your Name" type="text" id="joinInput" />
+        <input  onChange={(e) => setName( e.target.value)} placeholder="Enter Your Name" type="text" id="joinInput" />
         <Link to="/chat" onClick={(e) => !name ? e.preventDefault() : null}>
           <button onClick={senduser} className="joinbtn">
             Login In
@@ -26,6 +29,7 @@ const Join = () => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 .messageBox{
-    width: 50%;
+    width: initial;
+    color: #cccccc;
     padding: 1vmax;
     margin: 1vmax;
     border-radius: 0.5vmax;
@@ -11,14 +12,14 @@
 
 .right{
     float: right;
-    background-color: crimson;
+    background-color: #0f6b6e;
     color: white;
     text-align: right;
 }
 
 .left{
     float: left;
-    background-color: green;
+    background-color: #cccccc;
     color: black;
     text-align: left;
 }

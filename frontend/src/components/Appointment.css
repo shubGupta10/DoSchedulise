@@ -1,26 +1,33 @@
-
-
-
-
+body{
+  text-align: center;
+}
 
 .appointment-form-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-
-.appointment-form-container h2 {
-  color: #3fbbc0;
-  text-align: center;
-  padding: 10px 5px 10px 0px;
-  margin-bottom: 10px;
-  font-size: 40px;
-}
-
 
 .appointment-form {
-  display: grid;
-  gap: 10px;
+  max-width: 400px; 
+  width: 100%;
+}
+
+.appointment-form-container .appointment-image {
+  margin-right: 20px;
+}
+
+.appointment-form-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.appointment-form h2 {
+  color: #3fbbc0;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
 }
 
 .form-group {
