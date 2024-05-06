@@ -1,28 +1,15 @@
-//verify the token
-
 import jwt from 'jsonwebtoken'
-const secretKey = process.env.JWT_SECRET_KEY;
 
+const authMiddleware = async (req,res,next) => {
+    const token = req.header('Authorization');
 
-function authenticateToken(req,res,next){
-    const authHeader = req.header("Authorization");
-    if(!authHeader){
-        return res.status(401).json({message: "Unauthorized: Missing Token!"});
+    if(!token){
+        return res.status(401).json({message: "Unauthorized HTTP, token not provided"});
     }
+    console.log("token form auth middleware", token);
 
-    const [bearer, token] = authHeader.split(" ");
-    if(bearer !== "Bearer" || !token){
-        return res.status(401).json({message: "Unauthorized: Invalid token format"});
-    }
+    next();
 
-
-    jwt.verify(token, secretKey, (err, user) => {
-        if(err){
-            return res.status(401).json({message: "Forbidden: Invalid Token"})
-        }
-        req.user = user;
-        next();
-    })
 }
 
-export default authenticateToken
+export default authMiddleware

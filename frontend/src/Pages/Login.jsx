@@ -34,9 +34,9 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
   
         if (role === "Doctor") {
-          navigateTo("/dashboard");
+          navigateTo("/docdashboard");
         } else if(role === "Patient") {
-          navigateTo("/appointment");
+          navigateTo("/dashboard");
         }
       } else {
         toast.error("Invalid response received from the server.");

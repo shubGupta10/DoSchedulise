@@ -11,6 +11,7 @@ import Login from "./Pages/Login.jsx";
 import Profile from "./Pages/Profile.jsx";
 import Join from "./components/Join/Join.jsx";
 import Chat from "./components/Chat/Chat.jsx";
+import DocDashboard from "./components/DoctorsDashboard.jsx";
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="docdashboard" element={<DocDashboard/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route exact path="/join" element={<Join/>}/>
           <Route path="/chat" element={<Chat/>}/>

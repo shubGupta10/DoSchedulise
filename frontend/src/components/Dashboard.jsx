@@ -3,6 +3,7 @@ import "./Dashboard.css"
 import Navbar from './Navbar';
 import axios from 'axios'
 import Footer from './Footer';
+import DocDashboard from './DoctorsDashboard';
 
 
 const Dashboard = () => {
@@ -44,8 +45,10 @@ const Dashboard = () => {
       <section className="main_custom">
         <div className="main-top_custom">
           <p>Welcome to DoSchedulise Dashboard!</p>
+          
         </div>
         <div className="main-body_custom">
+       
           <h1>Recent Appointments</h1>
 
           <div className="row_custom">

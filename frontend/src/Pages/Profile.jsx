@@ -2,26 +2,26 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
-import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
     const [user, setUser] = useState({});
     const [formData, setFormData] = useState({});
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/api/v1/user/user/details');
-                console.log(response);
-                setUser(response.data);
-                setFormData(response.data);
+                const response = await axios.get(`http://localhost:5000/api/v1/user/user/details/${id}`);
+                setUser(response.data.user);
+                setFormData(response.data.user);
             } catch (error) {
                 console.error("Error found", error);
             }
         };
 
         fetchUser();
-    }, []);
+    }, [id]); // Make sure to include 'id' in the dependency array
 
     const handleChange = (e) => {
         setFormData({
