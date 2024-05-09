@@ -14,8 +14,8 @@ const Navbar = () => {
   // Retrieve userRole from localStorage
   const userRole = localStorage.getItem('userRole');
 
-  const logout = async () => {
-    localStorage.removeItem("token");
+  const logout = () => {
+    localStorage.clear();
     navigateTo("/login");
     toast.success("User logout Successful");
   }

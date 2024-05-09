@@ -1,70 +1,76 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { Form } from 'react-bootstrap';
-import axios from 'axios';
-import { useParams } from "react-router-dom";
+import "./Profile.css";
 
 const Profile = () => {
-    const [user, setUser] = useState({});
-    const [formData, setFormData] = useState({});
-    const {id} = useParams();
+    const [user, setUser] = useState([]);   
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/v1/user/user/details/${id}`);
-                setUser(response.data.user);
-                setFormData(response.data.user);
-            } catch (error) {
-                console.error("Error found", error);
-            }
-        };
-
-        fetchUser();
-    }, [id]); // Make sure to include 'id' in the dependency array
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            console.log("Form data:", formData);
-        } catch (error) {
-            console.error("Error updating profile", error);
+        // Retrieve user data from localStorage
+        const userData = localStorage.getItem("formData");
+        console.log(userData);
+        if (userData) {
+            setUser(JSON.parse(userData));
         }
-    };
+    }, []);
 
     return (
         <>
             <Navbar />
-            <Form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" value={formData.firstName || user.firstName || ''} onChange={handleChange} placeholder="First Name" />
+            <div className="container custom-card-container">
+                <div className="card user-card-full">
+                    <div className="row m-l-0 m-r-0 ">
+                        <div className="col-sm-4 bg-c-lite-green user-profile">
+                            <div className="card-block text-center text-white">
+                                <div className="m-b-25">
+                                    <img
+                                        src="https://img.icons8.com/bubbles/100/000000/user.png"
+                                        className="img-radius"
+                                        alt="User-Profile-Image"
+                                    />
+                                </div>
+                                <h6 className="f-w-600">{user.firstName} {user.lastName}</h6>
+                                <p>Profile</p>
+                                <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+                        <div className="col-sm-8">
+                            <div className="card-block">
+                                <h6 className="m-b-20 p-b-5 b-b-default f-w-600">
+                                    Information
+                                </h6>
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">Email</p>
+                                        <h6 className="text-muted f-w-400">{user.email}</h6>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">NIC</p>
+                                        <h6 className="text-muted f-w-400">{user.nic}</h6>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">DOB</p>
+                                        <h6 className="text-muted f-w-400">{user.dob}</h6>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">Department</p>
+                                        <h6 className="text-muted f-w-400">{user.doctorDepartment}</h6>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">Gender</p>
+                                        <h6 className="text-muted f-w-400">{user.gender}</h6>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <p className="m-b-10 f-w-600">Role</p>
+                                        <h6 className="text-muted f-w-400">{user.roles}</h6>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" value={formData.lastName || user.lastName || ''} onChange={handleChange} placeholder="Last Name" />
-                </div>
-
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" value={formData.email || user.email || ''} onChange={handleChange} placeholder="Email" />
-                </div>
-
-                <div>
-                    <label htmlFor="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" value={formData.phone || user.phone || ''} onChange={handleChange} placeholder="Phone" />
-                </div>
-
-                <button type="submit">Save</button>
-            </Form>
+            </div>
         </>
     );
 };

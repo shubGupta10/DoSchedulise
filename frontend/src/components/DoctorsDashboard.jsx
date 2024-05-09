@@ -7,6 +7,8 @@ import Navbar from "./Navbar";
 const DocDashboard = () => {
   const [appointments, setAppointments] = useState([]);
 
+  const name = localStorage.getItem("firstName");
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -41,70 +43,69 @@ const DocDashboard = () => {
     }
   };
 
-  return <>
-    <Navbar/>
-    <section className="doc-dashboard">
-      <div className="dashboard-header">
-       
-        <div className="dashboard-stats">
-          <div className="stat-box">
-            <p>Total Appointments</p>
-            <h3>{appointments.length}</h3>
+  return (
+    <>
+      <Navbar/>
+      <h1 className="welcomeh1">Welcome to the dashboard, Doctor <strong>{name}</strong></h1>
+      <section className="doc-dashboard">
+        <div className="dashboard-header">
+          <div className="dashboard-stats">
+            <h2>Total Appointments: {appointments.length}</h2>
+            {/* Additional stat boxes for other statistics */}
           </div>
-          {/* Additional stat boxes for other statistics */}
         </div>
-      </div>
-      <div className="dashboard-content">
-        <h2>Appointments</h2>
-        <table className="appointment-table">
-          <thead>
-            <tr>
-              <th>Patient</th>
-              <th>Date</th>
-              <th>Doctor</th>
-              <th>Department</th>
-              <th>Status</th>
-              <th>Visited</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments && appointments.length > 0 ? (
-              appointments.map((appointment) => (
-                <tr key={appointment._id}>
-                  <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
-                  <td>{appointment.appointment_date.substring(0, 16)}</td>
-                  <td>{`${appointment.doctor.firstName} ${appointment.doctor.lastName}`}</td>
-                  <td>{appointment.department}</td>
-                  <td>
-                    <select
-                      className={`status-select ${
-                        appointment.status.toLowerCase()
-                      }`}
-                      value={appointment.status}
-                      onChange={(e) =>
-                        handleUpdateStatus(appointment._id, e.target.value)
-                      }
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Accepted">Accepted</option>
-                      <option value="Rejected">Rejected</option>
-                    </select>
-                  </td>
-                  <td>
-                    {appointment.hasVisited ? "Available" : "Not available"}
-                  </td>
-                </tr>
-              ))
-            ) : (
+        <div className="dashboard-content">
+          <h2>Appointments</h2>
+          <table className="appointment-table">
+            <thead>
               <tr>
-                <td colSpan="6">No Appointments Found!</td>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Visited</th>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </thead>
+            <tbody>
+              {appointments && appointments.length > 0 ? (
+                appointments.map((appointment) => (
+                  <tr key={appointment._id}>
+                    <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
+                    <td>{appointment.appointment_date.substring(0, 16)}</td>
+                    <td>{`${appointment.doctor.firstName} ${appointment.doctor.lastName}`}</td>
+                    <td>{appointment.department}</td>
+                    <td>
+                      <select
+                        className={`status-select ${
+                          appointment.status.toLowerCase()
+                        }`}
+                        value={appointment.status}
+                        onChange={(e) =>
+                          handleUpdateStatus(appointment._id, e.target.value)
+                        }
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
+                      </select>
+                    </td>
+                    <td>
+                      {appointment.hasVisited ? "Available" : "Not available"}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No Appointments Found!</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
+  );
 };
 
 export default DocDashboard;

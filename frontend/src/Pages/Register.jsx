@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
@@ -16,8 +16,15 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     roles: [],
-    doctorDepartment: "", 
+    doctorDepartment: "",
   });
+
+  useEffect(() => {
+    const savedFormData = localStorage.getItem("formData");
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+  }, []);
 
   const navigateTo = useNavigate();
 
@@ -32,8 +39,8 @@ const Register = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      let registrationEndpoint = ""; 
-      
+      let registrationEndpoint = "";
+
       if (formData.roles.includes("Doctor")) {
         registrationEndpoint = "http://localhost:5000/api/v1/user/doctor/addnew";
       } else {
@@ -55,6 +62,12 @@ const Register = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  // Store form data in localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
+
 
   return (
     <>
