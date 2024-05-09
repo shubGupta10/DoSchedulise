@@ -46,6 +46,9 @@ const Register = () => {
         { headers: { "Content-Type": "application/json" } }
       );
 
+      // Save user role to localStorage upon successful registration
+      localStorage.setItem("userRole", formData.roles[0]);
+
       toast.success(response.data.message);
       navigateTo("/login");
     } catch (error) {

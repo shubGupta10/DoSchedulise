@@ -45,17 +45,7 @@ const DocDashboard = () => {
     <Navbar/>
     <section className="doc-dashboard">
       <div className="dashboard-header">
-        <div className="dashboard-info">
-          <img src="/doc.png" alt="docImg" />
-          <div className="welcome-message">
-            <p>Hello,</p>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Facilis, nam molestias. Eaque molestiae ipsam commodi neque.
-              Assumenda repellendus necessitatibus itaque.
-            </p>
-          </div>
-        </div>
+       
         <div className="dashboard-stats">
           <div className="stat-box">
             <p>Total Appointments</p>

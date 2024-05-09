@@ -4,7 +4,6 @@ import './Navbar.css';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
-  const token = localStorage.getItem("token");
   const navigateTo = useNavigate();
   const [activeLink, setActiveLink] = useState('/appointment'); 
 
@@ -12,13 +11,13 @@ const Navbar = () => {
     setActiveLink(to);
   };
 
-
+  // Retrieve userRole from localStorage
+  const userRole = localStorage.getItem('userRole');
 
   const logout = async () => {
     localStorage.removeItem("token");
     navigateTo("/login");
     toast.success("User logout Successful");
-    
   }
 
   return (
@@ -29,22 +28,26 @@ const Navbar = () => {
       </label>
       <label className="logo">DOSCHEDULISE</label>
       <ul>
+        {/* Conditionally render Appointment link based on userRole */}
+        {userRole !== 'Doctor' && (
+          <li>
+            <NavLink
+              to="/appointment"
+              activeClassName="active"
+              onClick={() => handleLinkClick('/appointment')}
+            >
+              Appointment
+            </NavLink>
+          </li>
+        )}
+        {/* Conditionally render Dashboard link based on userRole */}
         <li>
           <NavLink
-            to="/appointment"
+            to={userRole === 'Doctor' ? '/docdashboard' : '/dashboard'}
             activeClassName="active"
-            onClick={() => handleLinkClick('/appointment')}
+            onClick={() => handleLinkClick(userRole === 'Doctor' ? '/docdashboard' : '/dashboard')}
           >
-            Appointment
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/dashboard"
-            activeClassName="active"
-            onClick={() => handleLinkClick('/dashboard')}
-          >
-            Dashboard
+            {userRole === 'Doctor' ? 'DocDashboard' : 'Dashboard'}
           </NavLink>
         </li>
         <li>

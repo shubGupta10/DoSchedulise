@@ -32,6 +32,7 @@ const Login = () => {
         toast.success(response.data.message);
 
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userRole", role); 
   
         if (role === "Doctor") {
           navigateTo("/docdashboard");
