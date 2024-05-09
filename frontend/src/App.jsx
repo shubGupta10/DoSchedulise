@@ -13,6 +13,7 @@ import Join from "./components/Join/Join.jsx";
 import Chat from "./components/Chat/Chat.jsx";
 import DocDashboard from "./components/DoctorsDashboard.jsx";
 import Doctor from "./Pages/Doctor.jsx";
+import AppointmentConfirm from "./components/AppointmentConfirm.jsx";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="docdashboard" element={<DocDashboard/>}/>
+          <Route path="/appointment/thankyou" element={<AppointmentConfirm/>}/>
           <Route path="/doctors" element={<Doctor/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route exact path="/join" element={<Join/>}/>
