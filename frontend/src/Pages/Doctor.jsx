@@ -6,6 +6,7 @@ import doctorImage2 from "../../public/assets/img/doctors/doctors-2.jpg";
 import doctorImage3 from "../../public/assets/img/doctors/doctors-3.jpg";
 import doctorImage4 from "../../public/assets/img/doctors/doctors-4.jpg";
 import "./Doctor.css";
+import Footer from "../components/Footer"
 
 const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -53,6 +54,7 @@ const Doctor = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

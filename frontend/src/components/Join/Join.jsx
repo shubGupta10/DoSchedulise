@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Join.css";
 import { Link } from "react-router-dom";
 import Navbar from '../Navbar.jsx'
+import Footer from "../Footer.jsx";
 
 let user;
 const senduser = () => {
@@ -28,6 +29,7 @@ const Join = () => {
         </Link>
       </div>
     </div>
+    <Footer/>
     </>
   );
 };

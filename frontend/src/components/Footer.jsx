@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -10,27 +11,27 @@ const Footer = () => {
                             <div className="footer-info">
                                 <h3>DoSchedulise</h3>
                                 <p>
-                                    123 Main Street <br />
-                                    New York, NY 10001<br /><br />
-                                    <strong>Phone:</strong> +1 123 456 7890<br />
-                                    <strong>Email:</strong> info@doschedulise.com<br />
+                                    BBD University<br />
+                                    Chinhat, Lucknow 226028<br /><br />
+                                    <strong>Phone:</strong> +919292929299<br />
+                                    <strong>Email:</strong> shubhamgupta10@gmail.com<br />
                                 </p>
                                 <div className="social-links mt-3">
-                                    <a href="#" className="twitter"><i className="bx bxl-twitter"></i></a>
-                                    <a href="#" className="facebook"><i className="bx bxl-facebook"></i></a>
-                                    <a href="#" className="instagram"><i className="bx bxl-instagram"></i></a>
-                                    <a href="#" className="google-plus"><i className="bx bxl-skype"></i></a>
-                                    <a href="#" className="linkedin"><i className="bx bxl-linkedin"></i></a>
+                                    <Link to="" className="twitter"><i className="bx bxl-twitter"></i></Link>
+                                    <Link to="" className="Github"><i className="bx bxl-github"></i></Link>
+                                    <Link to="" className="facebook"><i className="bx bxl-facebook"></i></Link>
+                                    <Link to="" className="instagram"><i className="bx bxl-instagram"></i></Link>
+                                    <Link to="" className="linkedin"><i className="bx bxl-linkedin"></i></Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-2 col-md-6 footer-links">
                             <h4>Quick Links</h4>
                             <ul>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">About</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">Contact</a></li>
+                                <li><i className="bx bx-chevron-right"></i> <Link to="/dashboard">Dashboard</Link></li>
+                                <li><i className="bx bx-chevron-right"></i> <Link to="/doctors">Doctor</Link></li>
+                                <li><i className="bx bx-chevron-right"></i> <Link to="/join">Live Chat</Link></li>
+                                <li><i className="bx bx-chevron-right"></i> <Link to="/appointment">Appointment</Link></li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 footer-links">
@@ -42,13 +43,7 @@ const Footer = () => {
                                 <li><i className="bx bx-chevron-right"></i> <a href="#">Patient Communication</a></li>
                             </ul>
                         </div>
-                        <div className="col-lg-4 col-md-6 footer-newsletter">
-                            <h4>Newsletter</h4>
-                            <p>Subscribe to receive updates and exclusive offers.</p>
-                            <form action="" method="post">
-                                <input type="email" name="email" placeholder="Enter your email" /><input type="submit" value="Subscribe" />
-                            </form>
-                        </div>
+                     
                     </div>
                 </div>
             </div>
