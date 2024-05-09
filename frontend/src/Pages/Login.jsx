@@ -91,13 +91,10 @@ const Login = () => {
               </label>
               </div>
               <div className="flex">
-              <label>
-                Select Role:
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                <select className="loginInput" value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="Doctor">Doctor</option>
                   <option value="Patient">Patient</option>
                 </select>
-              </label>
             </div>
             <button type="submit" className="submit" id="LoginSubmit">
               Submit
