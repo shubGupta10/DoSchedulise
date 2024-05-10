@@ -42,6 +42,7 @@ export const postAppointment = async (req, res) => {
       role: "Doctor",
       doctorDepartment: department,
     });
+    console.log(doctor);
 
     if (!doctor) {
       return res.status(404).json({ success: false, message: "Doctor not found" });
