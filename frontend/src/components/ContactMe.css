@@ -1,0 +1,46 @@
+/* ContactMe.css */
+
+/* Add any additional styles here */
+
+#contactMe {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image {
+    flex: 1;
+  }
+  
+  .container {
+    flex: 1;
+    max-width: 500px; 
+  }
+
+  .textcont{
+    font-size: 30px;
+    line-height:4rem;
+    font-family: 'poppins', sans-serif;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  

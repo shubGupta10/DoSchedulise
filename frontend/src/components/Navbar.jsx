@@ -78,6 +78,15 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink
+            to="/contactme"
+            activeClassName="active"
+            onClick={() => handleLinkClick('/contactme')}
+          >
+            Contact Me
+          </NavLink>
+        </li>
+        <li>
           <Link to='/login' className="btn btn-danger" onClick={logout}>
             Logout
           </Link>

@@ -1,30 +1,37 @@
 import React from 'react';
+import Navbar from './Navbar';
+import './ContactMe.css'; // Import CSS file
 
 const ContactMe = () => {
   return (
     <>
-      <section id="contactMe" style={{ padding: 'auto' }}>
-        <div className="container goodlook justify-content-center" style={{ margin: 'auto', marginTop: '40px', maxWidth: 'auto', marginBottom: '50px' }}>
-          <h2 className="text-center mb-4 fs-15 goodlook">Contact Me</h2>
-          <form className="row g-3 goodlook" action="https://formspree.io/f/mleqwkjy" method="POST" id="myForm">
+      {/* <Navbar />  */}
+      <button>Back</button>
+      <section id="contactMe" >
+        <div className="textcont container">
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rem adipisci consectetur quam! Voluptate aliquid ea natus consequuntur et nam magnam omnis quibusdam ipsam provident, eius doloribus nihil impedit exercitationem.</span>
+        </div>
+        <div className="container">
+          <h2 className="text-center mb-4 fs-15">Contact Me</h2>
+          <form className="row g-3  min-vh-80 container" action="https://formspree.io/f/mleqwkjy" method="POST" id="myForm">
             <div className="col-12">
               <label htmlFor="firstName" className="form-label">First Name</label>
-              <input type="text" className="form-control" id="firstName" name="firstName" required style={{ backgroundColor: '#132537', color: 'white' }} />
+              <input type="text" className="form-control" id="firstName" name="firstName" required />
             </div>
             <div className="col-12">
               <label htmlFor="lastName" className="form-label">Last Name</label>
-              <input type="text" className="form-control" id="lastName" name="lastName" required style={{ backgroundColor: '#132537', color: 'white' }} />
+              <input type="text" className="form-control" id="lastName" name="lastName" required />
             </div>
             <div className="col-12">
               <label htmlFor="email" className="form-label">Email</label>
-              <input type="email" className="form-control" id="email" name="email" required style={{ backgroundColor: '#132537', color: 'white' }} />
+              <input type="email" className="form-control" id="email" name="email" required />
             </div>
             <div className="col-12">
               <label htmlFor="message" className="form-label">Message</label>
-              <textarea className="form-control" id="message" name="message" rows="5" required style={{ backgroundColor: '#132537', color: 'white' }}></textarea>
+              <textarea className="form-control" id="message" name="message" rows="5" required></textarea>
             </div>
             <div className="col-12 d-flex justify-content-center">
-              <button type="submit" className="btn btn-primary btn-lg" style={{ transition: 'all 0.3s ease' }}>Submit</button>
+              <button type="submit" className="btn btn-primary btn-lg">Submit</button>
             </div>
           </form>
         </div>
