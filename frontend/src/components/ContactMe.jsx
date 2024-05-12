@@ -11,7 +11,7 @@ const ContactMe = () => {
       <section id="contactMe" >
         <div className="container insidediv">
         <h2 className="text-center mb-4 fs-3 contactmetext">Have a question or inquiry? </h2>
-          {/* <h2 className="text-center mb-5 fs-15 contactmetext">Feel free to reach out to me using the form below</h2> */}
+          <h2 className="text-center mb-5 fs-15 contactmetext">Feel free to reach out to me using the form below</h2>
           <form className="row g-3  min-vh-80 container" action="https://formspree.io/f/mleqwkjy" method="POST" id="myForm">
             <div className="col-12">
               <label htmlFor="firstName" className="form-label fs-5 fw-bold">First Name</label>
