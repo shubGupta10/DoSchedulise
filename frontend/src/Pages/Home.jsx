@@ -47,6 +47,7 @@ function Home() {
   }, []);
 
   return (
+    // nav part
     <div>
       <div id="topbar" className="d-flex align-items-center fixed-top">
         <div className="container d-flex align-items-center justify-content-center justify-content-md-between">
