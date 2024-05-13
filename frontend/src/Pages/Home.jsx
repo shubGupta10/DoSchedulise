@@ -59,6 +59,7 @@ function Home() {
         </div>
       </div>
 
+      {/* Header section */}
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
           <Link className="logo me-auto">DoSchedulise</Link>
