@@ -1,16 +1,26 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+
 dotenv.config();
 
 export const dbConnection = () => {
+  const mongoURI = process.env.MONGOURL; 
+
+  if (!mongoURI) {
+    console.error('MongoDB URI is not defined. Please check your environment variables.');
+    return;
+  }
+
   mongoose
-    .connect(process.env.MONGOURl, {
+    .connect(mongoURI, {
       dbName: "DoSchedulise",
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     })
     .then(() => {
       console.log("Connected to database!");
     })
     .catch((err) => {
-      console.log("Some error occured while connecting to database:", err);
+      console.log("Some error occurred while connecting to the database:", err);
     });
 };
