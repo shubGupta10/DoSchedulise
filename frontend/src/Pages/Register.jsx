@@ -45,9 +45,9 @@ const Register = () => {
       let registrationEndpoint = "";
 
       if (formData.roles.includes("Doctor")) {
-        registrationEndpoint = `${import.meta.env.VITE_BAKCEND_URL}/api/v1/user/doctor/addnew`;
+        registrationEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/doctor/addnew`;
       } else {
-        registrationEndpoint = `${import.meta.env.VITE_BAKCEND_URL}/api/v1/user/patient/register`;
+        registrationEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/patient/register`;
       }
 
       // Request to store data in the database

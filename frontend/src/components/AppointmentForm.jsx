@@ -28,7 +28,7 @@ const AppointmentForm = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          `${import.meta.env.BAKCEND_URL}/api/v1/user/doctor/all`
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/doctor/all`
         );
         setDoctors(data.doctors);
       } catch (error) {
@@ -44,7 +44,7 @@ const AppointmentForm = () => {
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BAKCEND_URL}/api/v1/appointment/post`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/appointment/post`,
         {
           firstName,
           lastName,
