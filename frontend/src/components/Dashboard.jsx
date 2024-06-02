@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.BAKCEND_URL}/api/v1/user/doctor/all`);
+        const { data } = await axios.get(`${import.meta.env.VITE_BAKCEND_URL}/api/v1/user/doctor/all`);
         setDoctors(data.doctors);
       } catch (error) {
         console.error("Error in fetching doctors", error);
@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.BAKCEND_URL}/api/v1/appointment/getall`);
+        const { data } = await axios.get(`${import.meta.env.VITE_BAKCEND_URL}/api/v1/appointment/getall`);
         setAppointments(data.appointments);
       } catch (error) {
         console.error("Error in fetching appointments", error);

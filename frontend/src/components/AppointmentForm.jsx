@@ -44,7 +44,7 @@ const AppointmentForm = () => {
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.BAKCEND_URL}/api/v1/appointment/post`,
+        `${import.meta.env.VITE_BAKCEND_URL}/api/v1/appointment/post`,
         {
           firstName,
           lastName,

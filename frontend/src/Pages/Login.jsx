@@ -21,9 +21,9 @@ const Login = () => {
       let loginEndpoint = "";
 
       if (role === "Doctor") {
-        loginEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/doctor/doclogin`;
+        loginEndpoint = `${import.meta.env.VITE_BAKCEND_URL}/api/v1/user/doctor/doclogin`;
       } else if (role === "Patient") {
-        loginEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/login`;
+        loginEndpoint = `${import.meta.env.VITE_BAKCEND_URL}/api/v1/user/login`;
       }
 
       const response = await axios.post(
