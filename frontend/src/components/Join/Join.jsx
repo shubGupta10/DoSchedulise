@@ -18,7 +18,7 @@ const Join = () => {
     <>
     <Navbar/>
     <div className="JoinPage">
-      <img id="videoCall" src="https://i.pinimg.com/564x/28/30/86/283086f0fcb06130cf5eb4c0b27b3545.jpg" alt="Online video call" />
+      <img className="joinPageimg" id="videoCall" src="https://i.pinimg.com/564x/28/30/86/283086f0fcb06130cf5eb4c0b27b3545.jpg" alt="Online video call" />
       <div className="JoinContainer">
         <h1>Live Chat</h1>
         <input  onChange={(e) => setName( e.target.value)} placeholder="Enter Your Name" type="text" id="joinInput" />

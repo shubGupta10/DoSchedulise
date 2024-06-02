@@ -11,6 +11,12 @@ body{
     align-items: center;
 }
 
+@media (max-width: 768px) {
+    .joinPageimg{
+        display: none;
+    }
+}
+
 .JoinContainer{
     width: 50%;
     display: flex;
