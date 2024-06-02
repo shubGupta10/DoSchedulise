@@ -10,7 +10,7 @@ import closeIcon from '../../ChatLoginImage/closeIcon.png';
 
 let socket;
 
-const ENDPOINT= 'http://localhost:5000';
+const ENDPOINT= `${import.meta.env.BAKCEND_URL}`;
 
 const Chat = () => {
   const [id , setId] = useState("");

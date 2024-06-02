@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
-import Loader from "../components/Loader"; // Import the Loader component
+import Loader from "../components/Loader"; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -45,9 +45,9 @@ const Register = () => {
       let registrationEndpoint = "";
 
       if (formData.roles.includes("Doctor")) {
-        registrationEndpoint = "http://localhost:5000/api/v1/user/doctor/addnew";
+        registrationEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/doctor/addnew`;
       } else {
-        registrationEndpoint = "http://localhost:5000/api/v1/user/patient/register";
+        registrationEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/patient/register`;
       }
 
       // Request to store data in the database

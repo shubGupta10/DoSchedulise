@@ -13,7 +13,7 @@ const DocDashboard = () => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/v1/appointment/getall`
+          `${import.meta.env.BAKCEND_URL}/api/v1/appointment/getall`
         );
         setAppointments(data.appointments);
       } catch (error) {
@@ -27,7 +27,7 @@ const DocDashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/v1/appointment/update/${appointmentId}`,
+        `${import.meta.env.BAKCEND_URL}/api/v1/appointment/update/${appointmentId}`,
         { status }
       );
       setAppointments((prevAppointments) =>

@@ -3,27 +3,27 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
-import Loader from "../components/Loader"; // Import the Loader component
+import Loader from "../components/Loader"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Patient");
-  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(false); 
 
   const navigateTo = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true); 
 
     try {
       let loginEndpoint = "";
 
       if (role === "Doctor") {
-        loginEndpoint = "http://localhost:5000/api/v1/user/doctor/doclogin";
+        loginEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/doctor/doclogin`;
       } else if (role === "Patient") {
-        loginEndpoint = "http://localhost:5000/api/v1/user/login";
+        loginEndpoint = `${import.meta.env.BAKCEND_URL}/api/v1/user/login`;
       }
 
       const response = await axios.post(
@@ -49,7 +49,7 @@ const Login = () => {
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
-      setIsLoading(false); // Set loading state to false
+      setIsLoading(false); 
     }
   };
 
