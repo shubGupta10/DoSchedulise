@@ -88,7 +88,7 @@
 }
 
 
-@media (max-aspect-ratio: 7/10) {
+@media (max-width: 768px) {
     .chatContainer{
         background-color: white;
         height: 100% !important;
