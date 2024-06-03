@@ -128,7 +128,7 @@ const Register = () => {
               <label>
                 <input
                   required
-                  placeholder="Phone"
+                  placeholder="Enter 11 digit number"
                   type="tel"
                   className="input"
                   name="phone"
@@ -139,7 +139,7 @@ const Register = () => {
               <label>
                 <input
                   required
-                  placeholder="NIC"
+                  placeholder="Enter 13 digit number"
                   type="text"
                   className="input"
                   name="nic"
