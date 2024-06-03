@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
-import Loader from "../components/Loader"; 
+import Loader from "../components/Loader";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: "",
     lastName: "",
     email: "",
@@ -18,7 +18,9 @@ const Register = () => {
     confirmPassword: "",
     roles: [],
     doctorDepartment: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -63,6 +65,9 @@ const Register = () => {
 
       toast.success(response.data.message);
       navigateTo("/login");
+
+      // Reset form data after successful registration
+      setFormData(initialFormData);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
