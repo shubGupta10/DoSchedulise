@@ -1,57 +1,73 @@
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: to add a semi-transparent background */
+  z-index: 9999; /* Ensure it is on top of other elements */
+}
+
 .loader {
-    background: linear-gradient(
-      90deg,
-      #6f22ff,
-      #00aaff,
-      #2cc92c,
-      #00aaff,
-      #6f22ff
-    );
-    background-size: 600% 600%;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: neonRotate 10s linear infinite;
-    position: relative;
+  background: linear-gradient(
+    90deg,
+    #6f22ff,
+    #00aaff,
+    #2cc92c,
+    #00aaff,
+    #6f22ff
+  );
+  background-size: 600% 600%;
+  width: 200px; /* Increased size */
+  height: 200px; /* Increased size */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: neonRotate 10s linear infinite;
+  position: relative;
+}
+
+.circleMiddle {
+  background-color: rgb(255, 255, 255);
+  width: 160px; /* Increased size */
+  height: 160px; /* Increased size */
+  border-radius: 50%;
+  z-index: 99;
+}
+
+.worm {
+  position: absolute;
+  width: 40px; /* Increased size */
+  height: 210px; /* Increased size */
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 10px; /* Adjusted to maintain proportion */
+  animation: rotateWorm 4s linear infinite;
+  z-index: 80;
+}
+
+@keyframes neonRotate {
+  0%,
+  100% {
+    background-position: 0% 0%;
   }
-  .circleMiddle {
-    background-color: rgb(255, 255, 255);
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    z-index: 99;
+  25%,
+  75% {
+    background-position: 100% 0%;
   }
-  .worm {
-    position: absolute;
-    width: 20px;
-    height: 105px;
-    background-color: hsl(0, 0%, 100%);
-    border-radius: 5px;
-    animation: rotateWorm 4s linear infinite;
-    z-index: 80;
+  50% {
+    background-position: 0% 100%;
   }
-  @keyframes neonRotate {
-    0%,
-    100% {
-      background-position: 0% 0%;
-    }
-    25%,
-    75% {
-      background-position: 100% 0%;
-    }
-    50% {
-      background-position: 0% 100%;
-    }
+}
+
+@keyframes rotateWorm {
+  from {
+    transform: rotate(0deg);
   }
-  @keyframes rotateWorm {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  
+}
