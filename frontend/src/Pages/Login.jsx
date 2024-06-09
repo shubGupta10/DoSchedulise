@@ -11,7 +11,7 @@ const Login = () => {
   const [role, setRole] = useState("Patient");
   const [isLoading, setIsLoading] = useState(false); 
 
-  const navigateTo = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,9 +39,9 @@ const Login = () => {
         localStorage.setItem("userRole", role);
 
         if (role === "Doctor") {
-          navigateTo("/docdashboard");
+          navigate("/docdashboard");
         } else if (role === "Patient") {
-          navigateTo("/dashboard");
+          navigate("/dashboard");
         }
       } else {
         toast.error("Invalid response received from the server.");
@@ -55,70 +55,72 @@ const Login = () => {
 
   return (
     <>
-      <div className="navbar">
-        <div className="nav-icon">DOSCHEDULISE</div>
-      </div>
-      <div className="mainContainer container">
-        <div className="image-container">
-          <img
-            src="https://t4.ftcdn.net/jpg/03/30/33/29/360_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
-            alt="Doctor"
-            className="doctor-image"
-          />
-        </div>
-        <div className="form-container">
-          {isLoading ? ( 
-            <Loader />
-          ) : (
-            <form className="form" onSubmit={handleLogin}>
-              <p className="title">Login</p>
-              <p className="message">Login now to access our app.</p>
-              <div className="flex">
-                <label>
-                  <input
-                    required
-                    placeholder="Email"
-                    type="email"
-                    className="input"
-                    value={email}
-                    id="LoginInput"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div className="flex">
-                <label>
-                  <input
-                    required
-                    placeholder="Password"
-                    type="password"
-                    className="input"
-                    id="LoginInputPass"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div className="flex">
-                <select
-                  className="loginInput"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <option value="Doctor">Doctor</option>
-                  <option value="Patient">Patient</option>
-                </select>
-              </div>
-              <button type="submit" className="submit" id="LoginSubmit">
-                Submit
-              </button>
-              <p className="signin">
-                Don't have an account? <Link to="/register">Register now</Link>
-              </p>
-            </form>
-          )}
-        </div>
-      </div>
+      {isLoading ? ( 
+        <Loader />
+      ) : (
+        <>
+          <div className="navbar">
+            <div className="nav-icon">DOSCHEDULISE</div>
+          </div>
+          <div className="mainContainer container">
+            <div className="image-container">
+              <img
+                src="https://t4.ftcdn.net/jpg/03/30/33/29/360_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+                alt="Doctor"
+                className="doctor-image"
+              />
+            </div>
+            <div className="form-container">
+              <form className="form" onSubmit={handleLogin}>
+                <p className="title">Login</p>
+                <p className="message">Login now to access our app.</p>
+                <div className="flex">
+                  <label>
+                    <input
+                      required
+                      placeholder="Email"
+                      type="email"
+                      className="input"
+                      value={email}
+                      id="LoginInput"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="flex">
+                  <label>
+                    <input
+                      required
+                      placeholder="Password"
+                      type="password"
+                      className="input"
+                      id="LoginInputPass"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="flex">
+                  <select
+                    className="loginInput"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="Doctor">Doctor</option>
+                    <option value="Patient">Patient</option>
+                  </select>
+                </div>
+                <button type="submit" className="submit" id="LoginSubmit">
+                  Submit
+                </button>
+                <p className="signin">
+                  Don't have an account? <Link to="/register">Register now</Link>
+                </p>
+              </form>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
