@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home.jsx"
+import Home from "./Pages/Home.jsx";
 import Appointment from "./Pages/Appointment";
 import AboutUs from "./Pages/AboutUs";
 import Register from "./Pages/Register";
@@ -15,28 +15,45 @@ import DocDashboard from "./components/DoctorsDashboard.jsx";
 import Doctor from "./Pages/Doctor.jsx";
 import AppointmentConfirm from "./components/AppointmentConfirm.jsx";
 import ContactMe from "./components/ContactMe.jsx";
-
+import { useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
+  useEffect(() => {
+    const pollBackend = () => {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/user/keepActive`)
+        .then(response => {
+          console.log('Backend is alive:', response.data);
+        })
+        .catch(error => {
+          console.error('Error polling backend:', error);
+        });
+    };
 
+    pollBackend();
+
+    const intervalId = setInterval(pollBackend, 1200000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard/>}/>
-          <Route path="docdashboard" element={<DocDashboard/>}/>
-          <Route path="/appointment/thankyou" element={<AppointmentConfirm/>}/>
-          <Route path="/doctors" element={<Doctor/>}/>
-          <Route path="/contactme" element={<ContactMe/>}/>
-          <Route path="/profile" element={<Profile/>}/>
-          <Route exact path="/join" element={<Join/>}/>
-          <Route path="/chat" element={<Chat/>}/>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/docdashboard" element={<DocDashboard />} />
+          <Route path="/appointment/thankyou" element={<AppointmentConfirm />} />
+          <Route path="/doctors" element={<Doctor />} />
+          <Route path="/contactme" element={<ContactMe />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route exact path="/join" element={<Join />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
         <ToastContainer position="top-right" />
       </Router>

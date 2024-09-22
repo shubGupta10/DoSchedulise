@@ -14,8 +14,6 @@ export const dbConnection = () => {
   mongoose
     .connect(mongoURI, {
       dbName: "DoSchedulise",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     })
     .then(() => {
       console.log("Connected to database!");

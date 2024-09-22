@@ -258,3 +258,14 @@ export const logoutPatient = async (req, res) => {
   });
 };
 
+
+export const pollBackend = async (req, res) => {
+  try {
+    res.status(200).json({ message: "Backend is active" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
