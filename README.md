@@ -1,5 +1,3 @@
-# Creating a comprehensive README.md file for the project "DoSchedulise" with a professional tone.
-readme_content = """
 # DoSchedulise
 
 DoSchedulise is a user-friendly web application that connects people with medical care services. Our platform makes it easy to book appointments, manage schedules, and communicate securely in real-time between healthcare providers and patients
