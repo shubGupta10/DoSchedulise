@@ -17,6 +17,7 @@ import AppointmentConfirm from "./components/AppointmentConfirm.jsx";
 import ContactMe from "./components/ContactMe.jsx";
 import { useEffect } from "react";
 import axios from "axios";
+import ProtectedRoutes from "./utils/ProtectedRoutes.jsx";
 
 const App = () => {
   useEffect(() => {
@@ -38,26 +39,25 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/appointment" element={<Appointment />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/docdashboard" element={<DocDashboard />} />
-          <Route path="/appointment/thankyou" element={<AppointmentConfirm />} />
-          <Route path="/doctors" element={<Doctor />} />
-          <Route path="/contactme" element={<ContactMe />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route exact path="/join" element={<Join />} />
-          <Route path="/chat" element={<Chat />} />
-        </Routes>
-        <ToastContainer position="top-right" />
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/appointment" element={<ProtectedRoutes><Appointment /></ProtectedRoutes>} />
+        <Route path="/about" element={<ProtectedRoutes><AboutUs /></ProtectedRoutes>} />
+        <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+        <Route path="/docdashboard" element={<ProtectedRoutes><DocDashboard /></ProtectedRoutes>} />
+        <Route path="/appointment/thankyou" element={<ProtectedRoutes><AppointmentConfirm /></ProtectedRoutes>} />
+        <Route path="/doctors" element={<ProtectedRoutes><Doctor /></ProtectedRoutes>} />
+        <Route path="/contactme" element={<ProtectedRoutes><ContactMe /></ProtectedRoutes>} />
+        <Route path="/profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+        <Route path="/join" element={<ProtectedRoutes><Join /></ProtectedRoutes>} />
+        <Route path="/chat" element={<ProtectedRoutes><Chat /></ProtectedRoutes>} />
+      </Routes>
+      <ToastContainer position="top-right" />
+    </Router>
   );
 };
 

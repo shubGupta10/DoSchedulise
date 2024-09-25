@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import Loader from "../components/Loader"; 
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,13 +30,16 @@ const Login = () => {
       const response = await axios.post(
         loginEndpoint,
         { email, password },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" },
+      withCredentials: true }
       );
+
+      const token = Cookies.get('token');
+
 
       if (response && response.data) {
         toast.success(response.data.message);
-
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", token);
         localStorage.setItem("userRole", role);
 
         if (role === "Doctor") {
