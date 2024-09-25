@@ -1,5 +1,6 @@
 import { User } from "../models/userSchema.js";
 import bcrypt from "bcryptjs";
+import { generateToken } from "../middlewares/authMiddleware.js";
 
 export const patientRegister = async (req, res) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } = req.body;
@@ -15,7 +16,7 @@ export const patientRegister = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    const user = await User({
       firstName,
       lastName,
       email,
@@ -27,12 +28,19 @@ export const patientRegister = async (req, res) => {
       role: "Patient",
     });
 
-    res.status(200).json({
-      success: true,
-      message: user,
-      token: await user.generateToken(), 
-      userId: user._id.toString(),
-    });
+    await user.save();
+
+
+    const payload = {
+      id: user._id,
+      email: user.email,
+      role: user.role
+    }
+
+    const token = generateToken(payload);
+
+    res.status(201).json({ message: 'User created successfully', token });
+    
   } catch (error) {
     console.error("Error during patient registration:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -54,20 +62,32 @@ export const login = async (req, res) => {
     }
     const isValidPassword = await bcrypt.compare(password, userExist.password);
 
-    if(isValidPassword){
-
-      //  console.log("Generating token...");
-      //  const token = await userExist.generateToken();
-      //  console.log("Token generated:", token);
-
-      res.status(200).json({
-        message: "Login Successful",
-        token: await userExist.generateToken(), 
-        userId: userExist._id.toString(),
-      });
-    }else{
-      res.status(401).json({message: "Invalid email or password"})
+    if(!isValidPassword){
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
+
+    const payload = {
+      id: userExist._id,
+      email: userExist.email,
+      role: userExist.role
+    }
+
+    const token = generateToken(payload);
+
+    res.cookie('token', token, {
+      httpOnly: false,
+      secure: true,
+      sameSite: 'Strict',
+      maxAge: 3600000,
+    })
+
+    return res.status(200).json({
+      message: "User logged In Sucessfully",
+      userExist: {
+        id: userExist._id,
+        role: userExist.role
+      }
+    })
 
   } catch (error) {
     console.error("Error during login:", error);
