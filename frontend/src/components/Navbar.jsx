@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { toast } from 'react-toastify';
+import UserContext from "../context/UserContext";
+import Cookies from 'js-cookie'
 
 const Navbar = () => {
   const navigateTo = useNavigate();
@@ -11,14 +13,16 @@ const Navbar = () => {
     setActiveLink(to);
   };
 
-  // Retrieve userRole from localStorage
   const userRole = localStorage.getItem('userRole');
+  const {setUser} = useContext(UserContext);
 
   const logout = () => {
     localStorage.clear();
+    Cookies.remove('token');
+    setUser(null); 
     navigateTo("/login");
     toast.success("User logout Successful");
-  }
+  };
 
   return (
     <nav>

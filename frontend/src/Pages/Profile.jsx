@@ -2,13 +2,18 @@ import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
 import "./Profile.css";
 import UserContext from "../context/UserContext";
-import Loader from '../components/Loader'
+import Loader from '../components/Loader';
 
 const Profile = () => {
-    const user = useContext(UserContext); 
+    const { user, loading } = useContext(UserContext); 
+    
+
+    if (loading) {
+        return <p><Loader/></p>;
+    }
 
     if (!user) {
-        return <p><Loader/></p>;
+        return <p>No user data available.</p>;
     }
 
     return (
@@ -47,7 +52,7 @@ const Profile = () => {
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">DOB</p>
-                                        <h6 className="text-muted f-w-400">{new Date(user.dob).toLocaleDateString()}</h6> {/* Format date */}
+                                        <h6 className="text-muted f-w-400">{new Date(user.dob).toLocaleDateString()}</h6>
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">Department</p>
