@@ -1,130 +1,120 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import Loader from "../components/Loader"; 
 import Cookies from 'js-cookie'
+import UserContext from "../context/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Patient");
   const [isLoading, setIsLoading] = useState(false); 
 
+  const { user, setToken, loading } = useContext(UserContext);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "Doctor") {
+        navigate("/docdashboard");
+      } else if (user.role === "Patient") {
+        navigate("/dashboard");
+      }
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true); 
 
     try {
-      let loginEndpoint = "";
-
-      if (role === "Doctor") {
-        loginEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/doctor/doclogin`;
-      } else if (role === "Patient") {
-        loginEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`;
-      }
+      const loginEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`;
 
       const response = await axios.post(
         loginEndpoint,
         { email, password },
-        { headers: { "Content-Type": "application/json" },
-      withCredentials: true }
+        { 
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true 
+        }
       );
 
       const token = Cookies.get('token');
 
-
       if (response && response.data) {
         toast.success(response.data.message);
         localStorage.setItem("token", token);
-        localStorage.setItem("userRole", role);
-
-        if (role === "Doctor") {
-          navigate("/docdashboard");
-        } else if (role === "Patient") {
-          navigate("/dashboard");
-        }
+        setToken(token); 
       } else {
-        toast.error("Invalid response received from the server.");
+        throw new Error("Invalid response received from the server.");
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error("Login error:", error);
+      toast.error(error.response?.data?.message || "An error occurred during login.");
     } finally {
       setIsLoading(false); 
     }
   };
 
+  if (loading || isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {isLoading ? ( 
-        <Loader />
-      ) : (
-        <>
-          <div className="navbar">
-            <div className="nav-icon">DOSCHEDULISE</div>
-          </div>
-          <div className="mainContainer container">
-            <div className="image-container">
-              <img
-                src="https://t4.ftcdn.net/jpg/03/30/33/29/360_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
-                alt="Doctor"
-                className="doctor-image"
-              />
+      <div className="navbar">
+        <div className="nav-icon">DOSCHEDULISE</div>
+      </div>
+      <div className="mainContainer container">
+        <div className="image-container">
+          <img
+            src="https://t4.ftcdn.net/jpg/03/30/33/29/360_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+            alt="Doctor"
+            className="doctor-image"
+          />
+        </div>
+        <div className="form-container">
+          <form className="form" onSubmit={handleLogin}>
+            <p className="title">Login</p>
+            <p className="message">Login now to access our app.</p>
+            <div className="flex">
+              <label>
+                <input
+                  required
+                  placeholder="Email"
+                  type="email"
+                  className="input"
+                  value={email}
+                  id="LoginInput"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
             </div>
-            <div className="form-container">
-              <form className="form" onSubmit={handleLogin}>
-                <p className="title">Login</p>
-                <p className="message">Login now to access our app.</p>
-                <div className="flex">
-                  <label>
-                    <input
-                      required
-                      placeholder="Email"
-                      type="email"
-                      className="input"
-                      value={email}
-                      id="LoginInput"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </label>
-                </div>
-                <div className="flex">
-                  <label>
-                    <input
-                      required
-                      placeholder="Password"
-                      type="password"
-                      className="input"
-                      id="LoginInputPass"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </label>
-                </div>
-                <div className="flex">
-                  <select
-                    className="loginInput"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="Doctor">Doctor</option>
-                    <option value="Patient">Patient</option>
-                  </select>
-                </div>
-                <button type="submit" className="submit" id="LoginSubmit">
-                  Submit
-                </button>
-                <p className="signin">
-                  Don't have an account? <Link to="/register">Register now</Link>
-                </p>
-              </form>
+            <div className="flex">
+              <label>
+                <input
+                  required
+                  placeholder="Password"
+                  type="password"
+                  className="input"
+                  id="LoginInputPass"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
             </div>
-          </div>
-        </>
-      )}
+            <button type="submit" className="submit" id="LoginSubmit">
+              Submit
+            </button>
+            <p className="signin">
+              Don't have an account? <Link to="/register">Register now</Link>
+            </p>
+          </form>
+        </div>
+      </div>
     </>
   );
 };
