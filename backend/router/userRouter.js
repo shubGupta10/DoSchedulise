@@ -9,7 +9,8 @@ import {
   getUserDetails,
   logoutAdmin,
   logoutPatient,
-  pollBackend
+  pollBackend,
+  fetchUserById
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -31,6 +32,7 @@ router.post("/doctor/doclogin", doctorLogin);
 
 // Route for getting user details
 router.get("/user/details", getUserDetails);
+router.get("/userById/:id", fetchUserById);
 
 //poll backend
 router.get("/user/keepActive", pollBackend);

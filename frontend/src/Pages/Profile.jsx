@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
 import "./Profile.css";
+import UserContext from "../context/UserContext";
+import Loader from '../components/Loader'
 
 const Profile = () => {
-    const [user, setUser] = useState([]);   
+    const user = useContext(UserContext); 
 
-    useEffect(() => {
-        // Retrieve user data from localStorage
-        const userData = localStorage.getItem("formData");
-        console.log(userData);
-        if (userData) {
-            setUser(JSON.parse(userData));
-        }
-    }, []);
+    if (!user) {
+        return <p><Loader/></p>;
+    }
 
     return (
         <>
             <Navbar />
             <div className="container custom-card-container">
                 <div className="card user-card-full">
-                    <div className="row m-l-0 m-r-0 ">
+                    <div className="row m-l-0 m-r-0">
                         <div className="col-sm-4 bg-c-lite-green user-profile">
                             <div className="card-block text-center text-white">
                                 <div className="m-b-25">
@@ -31,7 +28,7 @@ const Profile = () => {
                                 </div>
                                 <h6 className="f-w-600">{user.firstName} {user.lastName}</h6>
                                 <p>Profile</p>
-                                <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                <i className="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                         </div>
                         <div className="col-sm-8">
@@ -50,11 +47,11 @@ const Profile = () => {
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">DOB</p>
-                                        <h6 className="text-muted f-w-400">{user.dob}</h6>
+                                        <h6 className="text-muted f-w-400">{new Date(user.dob).toLocaleDateString()}</h6> {/* Format date */}
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">Department</p>
-                                        <h6 className="text-muted f-w-400">{user.doctorDepartment}</h6>
+                                        <h6 className="text-muted f-w-400">{user.department || 'N/A'}</h6>
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">Gender</p>
@@ -62,9 +59,8 @@ const Profile = () => {
                                     </div>
                                     <div className="col-sm-6">
                                         <p className="m-b-10 f-w-600">Role</p>
-                                        <h6 className="text-muted f-w-400">{user.roles}</h6>
+                                        <h6 className="text-muted f-w-400">{user.role}</h6>
                                     </div>
-                                   
                                 </div>
                             </div>
                         </div>

@@ -95,6 +95,22 @@ export const login = async (req, res) => {
   }
 };
 
+export const fetchUserById = async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+      const fetchedUser = await User.findById(userId);
+      if(!fetchedUser){
+        return res.status(404).json({message: "User not found"})
+      }
+
+      return res.status(200).json({message: "User found", user: fetchedUser});
+    } catch (error) {
+      console.error("Something went wrong in fetching user")
+      res.status(500).json({message: "Internal Server error", error})
+    }
+}
+
 
 export const addNewAdmin = async (req, res) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } = req.body;

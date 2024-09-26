@@ -1,11 +1,13 @@
-import jwtdecode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
 
-export const deocdedToken = (token) => {
+const decodeToken = (token) => {
     try {
-        const decode = jwtdecode(token);
-        return decode;
+        const decoded = jwtDecode(token);
+        return decoded;
     } catch (error) {
         console.error("Invalid token", error);
         return null;
     }
 }
+
+export default decodeToken;
